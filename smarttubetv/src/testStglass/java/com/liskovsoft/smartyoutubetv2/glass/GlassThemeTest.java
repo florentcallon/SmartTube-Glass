@@ -84,6 +84,27 @@ public class GlassThemeTest {
         }
     }
 
+    private static int styleFontFamily(Context context, int styleAttr) {
+        TypedValue style = new TypedValue();
+        assertTrue("style attribute missing", context.getTheme().resolveAttribute(styleAttr, style, true));
+        android.content.res.TypedArray a = context.obtainStyledAttributes(style.resourceId, new int[]{android.R.attr.fontFamily});
+        try {
+            return a.getResourceId(0, 0);
+        } finally {
+            a.recycle();
+        }
+    }
+
+    @Test
+    public void cardAndRowTextsUseFigtree() {
+        for (int theme : new int[]{R.style.App_Theme_Glass_Noir_Browse, R.style.App_Theme_Glass_Rose_Browse}) {
+            Context context = glassContext(theme);
+            for (int attr : new int[]{R.attr.imageCardViewTitleStyle, R.attr.imageCardViewContentStyle, R.attr.rowHeaderStyle}) {
+                assertEquals("fontFamily of style attr " + attr, R.font.glass_figtree, styleFontFamily(context, attr));
+            }
+        }
+    }
+
     /**
      * With the 88dp icon rail as main fragment margin, grids keep upstream's usable width (960 - 2 x 56 = 848dp)
      * only if their paddings shrink to 8 + 16dp: GridFragmentHelper sizes columns from the display width.

@@ -18,8 +18,8 @@ android {
         stglass {
             dimension "default"
             applicationId "org.smarttube.glass"
-            // Glass drawables use theme attributes (?attr), which XML drawables only resolve from API 21.
-            minSdkVersion 21
+            // Theme attributes (?attr): in XML drawables from API 21, in colour state lists from API 23.
+            minSdkVersion 23
             targetSdkVersion project.properties.compileSdkVersion
             versionCode glassVersionCode
             versionNameSuffix "-glass.${glassRevision}"

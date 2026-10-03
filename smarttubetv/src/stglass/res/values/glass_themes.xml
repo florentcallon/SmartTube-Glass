@@ -20,6 +20,17 @@
         <item name="android:paddingStart">24dp</item>
     </style>
 
+    <!-- Figtree typography (cards, row titles) -->
+    <style name="Glass.CardTitle" parent="Widget.Leanback.ImageCardView.TitleStyle">
+        <item name="android:fontFamily">@font/glass_figtree</item>
+    </style>
+    <style name="Glass.CardContent" parent="Widget.Leanback.ImageCardView.ContentStyle">
+        <item name="android:fontFamily">@font/glass_figtree</item>
+    </style>
+    <style name="Glass.RowHeader" parent="Widget.Leanback.Row.Header">
+        <item name="android:fontFamily">@font/glass_figtree</item>
+    </style>
+
     <!-- Glass Noir -->
     <style name="App.Theme.Glass.Noir.Browse" parent="App.Theme.DarkGrey.Browse">
         <item name="android:windowBackground">@color/glass_noir_shelf</item>
@@ -32,6 +43,9 @@
         <item name="rowHorizontalGridStyle">@style/Glass.RowView</item>
         <item name="rowHeaderDockStyle">@style/Glass.RowHeaderDock</item>
         <item name="browseTitleViewStyle">@style/Glass.TitleView</item>
+        <item name="imageCardViewTitleStyle">@style/Glass.CardTitle</item>
+        <item name="imageCardViewContentStyle">@style/Glass.CardContent</item>
+        <item name="rowHeaderStyle">@style/Glass.RowHeader</item>
         <item name="glassAmbient">true</item>
         <item name="brandAccentColor">@color/glass_noir_accent</item>
         <item name="cardDefaultBackground">@color/glass_noir_card</item>
@@ -73,6 +87,9 @@
         <item name="rowHorizontalGridStyle">@style/Glass.RowView</item>
         <item name="rowHeaderDockStyle">@style/Glass.RowHeaderDock</item>
         <item name="browseTitleViewStyle">@style/Glass.TitleView</item>
+        <item name="imageCardViewTitleStyle">@style/Glass.CardTitle</item>
+        <item name="imageCardViewContentStyle">@style/Glass.CardContent</item>
+        <item name="rowHeaderStyle">@style/Glass.RowHeader</item>
         <item name="glassAmbient">true</item>
         <item name="brandAccentColor">@color/glass_rose_accent</item>
         <item name="cardDefaultBackground">@color/glass_rose_card</item>
