@@ -46,7 +46,7 @@ Tout le reste passe par :
 - Sous-modules inchangés (URLs upstream).
 - Versions upstream : tags `X.YY` = beta (prerelease), `X.YYs` = stable. **On suit les stables uniquement.**
 - Numéro de version du fork : `versionCode = upstreamVersionCode * 100 + glassRevision`
-  (`glassRevision` ∈ [0, 99], dans `glass/glass.properties`, remis à 0 à chaque sync upstream).
+  (`glassRevision` ∈ [0, 99], calculé par la CI = nombre de tags `v<upstreamVersionName>-glass.*` existants ; 0 en build local).
   `versionName = "<upstreamVersionName>-glass.<rev>"` (ex. upstream 32.56s : versionCode 2446 → 244600, `32.56-glass.0`).
 - `applicationId = org.smarttube.glass`.
 - Les modules bibliothèques sans flavor `stglass` utilisent `matchingFallbacks = ['ststable']`
@@ -58,7 +58,6 @@ Tout le reste passe par :
 ```
 glass/
   README.md                 doc du fork (build, signature, sync, résolution de conflits)
-  glass.properties          glassRevision
   overrides.lock            fichier upstream remplacé -> SHA-1 de la version copiée
   scripts/
     check-overrides.sh      compare overrides.lock aux fichiers upstream actuels
