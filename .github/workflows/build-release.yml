@@ -1,0 +1,135 @@
+name: Build & release SmartTube Glass
+
+on:
+  push:
+    branches: [glass]
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    concurrency:
+      group: glass-release
+      cancel-in-progress: false
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+    steps:
+      # Always build the tip of glass: when called by sync-upstream, the triggering
+      # SHA predates the merge that was just pushed.
+      - uses: actions/checkout@v4
+        with:
+          ref: glass
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Fetch tags
+        run: git fetch --tags --force
+
+      - name: Skip if this commit is already released
+        id: guard
+        run: |
+          if git tag --points-at HEAD | grep -q -- '-glass\.'; then
+            echo "HEAD is already released: $(git tag --points-at HEAD | tr '\n' ' ')"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-java@v4
+        if: steps.guard.outputs.skip == 'false'
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Script tests
+        if: steps.guard.outputs.skip == 'false'
+        run: bash glass/tests/test-scripts.sh
+
+      - name: Compute version
+        if: steps.guard.outputs.skip == 'false'
+        id: version
+        run: |
+          UP=$(./gradlew -q :smarttubetv:printGlassVersion | sed -E 's/.*upstreamVersionName=([^ ]+).*/\1/')
+          REV=$(git tag -l | bash glass/scripts/next-revision.sh "$UP")
+          LINE=$(./gradlew -q :smarttubetv:printGlassVersion -PglassRevision="$REV")
+          CODE=$(echo "$LINE" | sed -E 's/.*versionCode=([0-9]+).*/\1/')
+          NAME=$(echo "$LINE" | sed -E 's/.*versionName=([^ ]+).*/\1/')
+          echo "Building $NAME ($CODE)"
+          {
+            echo "rev=$REV"
+            echo "code=$CODE"
+            echo "name=$NAME"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Signing config
+        if: steps.guard.outputs.skip == 'false'
+        env:
+          KEYSTORE_BASE64: ${{ secrets.GLASS_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.GLASS_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.GLASS_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.GLASS_KEY_PASSWORD }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ] || [ -z "$KEYSTORE_PASSWORD" ] || [ -z "$KEY_ALIAS" ] || [ -z "$KEY_PASSWORD" ]; then
+            echo "::error::signing secrets missing (GLASS_KEYSTORE_BASE64, GLASS_KEYSTORE_PASSWORD, GLASS_KEY_ALIAS, GLASS_KEY_PASSWORD)"
+            exit 1
+          fi
+          echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/glass.jks"
+          {
+            echo "storeFile=$RUNNER_TEMP/glass.jks"
+            echo "storePassword=$KEYSTORE_PASSWORD"
+            echo "keyAlias=$KEY_ALIAS"
+            echo "keyPassword=$KEY_PASSWORD"
+          } > keystore.properties
+
+      - name: Test & build
+        if: steps.guard.outputs.skip == 'false'
+        run: ./gradlew -PglassRevision=${{ steps.version.outputs.rev }} :smarttubetv:testStglassDebugUnitTest :smarttubetv:assembleStglassRelease
+
+      - name: Collect assets
+        if: steps.guard.outputs.skip == 'false'
+        env:
+          NAME: ${{ steps.version.outputs.name }}
+          CODE: ${{ steps.version.outputs.code }}
+        run: |
+          OUT=smarttubetv/build/outputs/apk/stglass/release
+          mkdir -p dist
+          cp "$OUT/SmartTube_glass_${NAME}_universal.apk" dist/smarttube_glass.apk
+          cp "$OUT/SmartTube_glass_${NAME}_arm64-v8a.apk" dist/smarttube_glass_arm64-v8a.apk
+          cp "$OUT/SmartTube_glass_${NAME}_armeabi-v7a.apk" dist/smarttube_glass_armeabi-v7a.apk
+
+          UPSTREAM=$(git describe --tags --match '[0-9]*s' --abbrev=0 HEAD 2>/dev/null || echo "(tag upstream introuvable)")
+          PREV=$(git describe --tags --match 'v*-glass.*' --abbrev=0 HEAD 2>/dev/null || true)
+          RANGE=${PREV:+$PREV..}HEAD
+          mapfile -t LINES < <(git log --first-parent --no-merges --format=%s "$RANGE" | head -n 10)
+          bash glass/scripts/make-update-json.sh "$NAME" "$CODE" "$REPO" "Upstream $UPSTREAM" "${LINES[@]}" > dist/smarttube_glass.json
+
+          {
+            echo "SmartTube Glass $NAME (versionCode $CODE), basée sur SmartTube $UPSTREAM."
+            echo
+            for l in "${LINES[@]}"; do echo "- $l"; done
+          } > dist/notes.md
+          ls -l dist
+
+      - name: Publish release
+        if: steps.guard.outputs.skip == 'false'
+        env:
+          NAME: ${{ steps.version.outputs.name }}
+        run: |
+          ASSETS="dist/smarttube_glass.apk dist/smarttube_glass_arm64-v8a.apk dist/smarttube_glass_armeabi-v7a.apk dist/smarttube_glass.json"
+          gh release create "v$NAME" $ASSETS --target "$(git rev-parse HEAD)" --title "SmartTube Glass $NAME" --notes-file dist/notes.md
+          gh release view latest > /dev/null 2>&1 \
+            || gh release create latest --target "$(git rev-parse HEAD)" --title "Latest" --notes "Dernière version de SmartTube Glass (lue par la mise à jour intégrée)." --latest=false
+          gh release upload latest $ASSETS --clobber
+
+      - name: Report failure
+        if: failure()
+        run: |
+          gh issue create \
+            --title "Build/release échoué : $(git rev-parse --short HEAD)" \
+            --body "Le workflow de build a échoué : ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
