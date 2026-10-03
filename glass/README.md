@@ -132,6 +132,14 @@ Quand le fork remplace un fichier de SmartTube (mise en page, style…) par sa p
 - Après une issue « Surcharges à revoir » : comparer l'ancienne et la nouvelle version du fichier
   d'origine, reporter le changement dans la surcharge, retirer la ligne de `overrides.lock` et la réinscrire.
 
+### Couleurs SmartTube redéfinies
+
+`smarttubetv/src/stglass/res/color/` redéfinit trois couleurs de `smarttubetv/src/main/res/values/colors.xml`
+(`card_default_text`, `card_selected_text_grey`, `card_selected_background_white`), lues par les presenters de
+cartes, pour qu'elles suivent le thème (`?attr/glassCard*`, valeurs d'origine dans `GlassDefaults`).
+Si SmartTube renomme ces couleurs, la redéfinition devient sans effet : vérifier après une synchro qui touche
+les presenters de cartes.
+
 ## Vérification sur la box (Xiaomi TV Box S 3e gén.)
 
 Activer le débogage réseau sur la box (Paramètres → Système → À propos → appuyer 7 fois sur la version,

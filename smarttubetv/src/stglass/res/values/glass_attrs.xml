@@ -14,4 +14,8 @@
     <attr name="glassCardText" format="color" />
     <attr name="glassCardSelectedText" format="color" />
     <attr name="glassCardSelectedBackground" format="color" />
+
+    <declare-styleable name="GlassRoundedFrameLayout">
+        <attr name="glassCornerRadius" format="dimension" />
+    </declare-styleable>
 </resources>

@@ -31,6 +31,11 @@
         <item name="android:fontFamily">@font/glass_figtree</item>
     </style>
 
+    <!-- Rounded card progress bar -->
+    <style name="Glass.CardProgress" parent="ProgressBarHorizontal.Dark">
+        <item name="android:progressDrawable">@drawable/glass_card_progress</item>
+    </style>
+
     <!-- Glass Noir -->
     <style name="App.Theme.Glass.Noir.Browse" parent="App.Theme.DarkGrey.Browse">
         <item name="android:windowBackground">@color/glass_noir_shelf</item>
@@ -46,6 +51,7 @@
         <item name="imageCardViewTitleStyle">@style/Glass.CardTitle</item>
         <item name="imageCardViewContentStyle">@style/Glass.CardContent</item>
         <item name="rowHeaderStyle">@style/Glass.RowHeader</item>
+        <item name="cardProgressStyle">@style/Glass.CardProgress</item>
         <item name="glassAmbient">true</item>
         <item name="brandAccentColor">@color/glass_noir_accent</item>
         <!-- Free-text cards: no box behind the title, even when focused -->
@@ -94,6 +100,7 @@
         <item name="imageCardViewTitleStyle">@style/Glass.CardTitle</item>
         <item name="imageCardViewContentStyle">@style/Glass.CardContent</item>
         <item name="rowHeaderStyle">@style/Glass.RowHeader</item>
+        <item name="cardProgressStyle">@style/Glass.CardProgress</item>
         <item name="glassAmbient">true</item>
         <item name="brandAccentColor">@color/glass_rose_accent</item>
         <!-- Free-text cards: no box behind the title, even when focused -->
