@@ -8,4 +8,8 @@
          The side menu elevation pointed at this value: keep it explicit. -->
     <dimen name="lb_material_shadow_focused_z">0dp</dimen>
     <dimen name="lb_browse_headers_z">10dp</dimen>
+    <!-- Thicker player progress bar (spec §6.3). Read without theme by the upstream SeekBar: whole flavor. -->
+    <dimen name="lb_playback_transport_progressbar_bar_height">6dp</dimen>
+    <dimen name="lb_playback_transport_progressbar_active_bar_height">8dp</dimen>
+    <dimen name="lb_playback_transport_progressbar_active_radius">9dp</dimen>
 </resources>

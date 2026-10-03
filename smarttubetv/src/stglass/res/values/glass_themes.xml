@@ -112,6 +112,8 @@
         <item name="glassPlayerCapsule">@drawable/glass_player_capsule</item>
         <item name="glassControlsAlignStart">false</item>
         <item name="glassControlsCenter">true</item>
+        <item name="glassControlButtonPrimary">@drawable/glass_control_button</item>
+        <item name="glassControlButtonSecondary">@drawable/glass_control_button</item>
         <item name="playbackControlsTimeStyle">@style/Glass.PlayerTime</item>
     </style>
     <style name="App.Theme.Glass.Noir.Preferences" parent="App.Theme.DarkGrey.Preferences">
@@ -181,6 +183,8 @@
         <item name="glassPlayerCapsule">@drawable/glass_player_capsule</item>
         <item name="glassControlsAlignStart">false</item>
         <item name="glassControlsCenter">true</item>
+        <item name="glassControlButtonPrimary">@drawable/glass_control_button</item>
+        <item name="glassControlButtonSecondary">@drawable/glass_control_button</item>
         <item name="playbackControlsTimeStyle">@style/Glass.PlayerTime</item>
     </style>
     <style name="App.Theme.Glass.Rose.Preferences" parent="App.Theme.DarkGrey.Preferences">

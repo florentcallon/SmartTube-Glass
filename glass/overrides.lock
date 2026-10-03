@@ -7,3 +7,5 @@ e3005c8dba21f08fe2eea2dc7cc219b8c952c254  smarttubetv/src/main/res/layout/settin
 7c3533df8f09fb1a6ee509dc6bc55d540daeffa6  smarttubetv/src/main/res/layout/text_badge_image_view.xml
 b868fc060b961f1180c4d3a2132bfe712ac105a6  smarttubetv/src/main/res/layout/channel_card.xml
 b32a121e5891b9b52ff43cadb4dad847dfb479f1  smarttubetv/src/main/res/layout/lb_playback_transport_controls_row.xml
+006f47d5c76ae85a385fe43b4c259db01b54864d  leanback-1.0.0/src/main/res/layout/lb_control_button_primary.xml
+7cd12f7feb26c6f6d1d465a8cc01f118418b9e67  leanback-1.0.0/src/main/res/layout/lb_control_button_secondary.xml

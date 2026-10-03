@@ -31,6 +31,8 @@
         <item name="glassPlayerCapsule">@null</item>
         <item name="glassControlsAlignStart">true</item>
         <item name="glassControlsCenter">false</item>
+        <item name="glassControlButtonPrimary">@drawable/lb_control_button_primary</item>
+        <item name="glassControlButtonSecondary">@drawable/lb_control_button_secondary</item>
         <item name="glassFocusOutline">@null</item>
     </style>
 </resources>

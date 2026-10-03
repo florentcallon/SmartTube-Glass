@@ -85,4 +85,30 @@ public class GlassPlayerTest {
             a.recycle();
         }
     }
+
+    // Drawables with theme attributes are not cached, so instances never compare equal: check their kind.
+    private static android.graphics.drawable.Drawable buttonDrawable(int theme, int layout) {
+        View button = LayoutInflater.from(playerContext(theme)).inflate(layout, null).findViewById(R.id.button);
+        return ((android.widget.ImageView) button).getDrawable();
+    }
+
+    @Test
+    public void controlButtonsUseGlassFocus() {
+        for (int layout : new int[]{R.layout.lb_control_button_primary, R.layout.lb_control_button_secondary}) {
+            android.graphics.drawable.Drawable drawable = buttonDrawable(R.style.App_Theme_Glass_Noir_Player, layout);
+            assertTrue("glass button background is a selector", drawable instanceof android.graphics.drawable.StateListDrawable);
+            drawable.setState(new int[]{android.R.attr.state_focused});
+            assertTrue("focused glass button is a disc", drawable.getCurrent() instanceof android.graphics.drawable.GradientDrawable);
+        }
+    }
+
+    @Test
+    public void classicControlButtonsAreUpstream() {
+        Context context = playerContext(R.style.App_Theme_DarkGrey_Player);
+        assertEquals(androidx.core.content.ContextCompat.getDrawable(context, R.drawable.lb_control_button_primary).getClass(),
+                buttonDrawable(R.style.App_Theme_DarkGrey_Player, R.layout.lb_control_button_primary).getClass());
+        assertEquals(androidx.core.content.ContextCompat.getDrawable(context, R.drawable.lb_control_button_secondary).getClass(),
+                buttonDrawable(R.style.App_Theme_DarkGrey_Player, R.layout.lb_control_button_secondary).getClass());
+        assertTrue(!(buttonDrawable(R.style.App_Theme_DarkGrey_Player, R.layout.lb_control_button_primary) instanceof android.graphics.drawable.StateListDrawable));
+    }
 }
