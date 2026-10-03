@@ -3,8 +3,11 @@ name: Build & release SmartTube Glass
 on:
   push:
     branches: [glass]
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
+      - 'glass/mockup/**'
   workflow_dispatch:
-  workflow_call:
 
 jobs:
   release:
@@ -19,25 +22,26 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       REPO: ${{ github.repository }}
     steps:
-      # Always build the tip of glass: when called by sync-upstream, the triggering
-      # SHA predates the merge that was just pushed.
       - uses: actions/checkout@v4
         with:
           ref: glass
           fetch-depth: 0
           submodules: recursive
 
+      # gradlew is stored without the exec bit upstream (100644).
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Fetch tags
         run: git fetch --tags --force
 
-      - name: Skip if this commit is already released
+      - name: Decide whether to release
         id: guard
         run: |
-          if git tag --points-at HEAD | grep -q -- '-glass\.'; then
-            echo "HEAD is already released: $(git tag --points-at HEAD | tr '\n' ' ')"
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-          else
+          if bash glass/scripts/should-release.sh; then
             echo "skip=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=true" >> "$GITHUB_OUTPUT"
           fi
 
       - uses: actions/setup-java@v4
@@ -55,11 +59,11 @@ jobs:
         if: steps.guard.outputs.skip == 'false'
         id: version
         run: |
-          UP=$(./gradlew -q :smarttubetv:printGlassVersion | sed -E 's/.*upstreamVersionName=([^ ]+).*/\1/')
+          UP=$(./gradlew -q :smarttubetv:printGlassVersion | bash glass/scripts/parse-version.sh upstreamVersionName)
           REV=$(git tag -l | bash glass/scripts/next-revision.sh "$UP")
           LINE=$(./gradlew -q :smarttubetv:printGlassVersion -PglassRevision="$REV")
-          CODE=$(echo "$LINE" | sed -E 's/.*versionCode=([0-9]+).*/\1/')
-          NAME=$(echo "$LINE" | sed -E 's/.*versionName=([^ ]+).*/\1/')
+          CODE=$(echo "$LINE" | bash glass/scripts/parse-version.sh versionCode)
+          NAME=$(echo "$LINE" | bash glass/scripts/parse-version.sh versionName)
           echo "Building $NAME ($CODE)"
           {
             echo "rev=$REV"
@@ -116,20 +120,22 @@ jobs:
           } > dist/notes.md
           ls -l dist
 
+      # The fixed `latest` release (read by the TV) is updated first and the versioned
+      # release last: its tag marks HEAD as released, so a failed run can simply be re-run.
       - name: Publish release
         if: steps.guard.outputs.skip == 'false'
         env:
           NAME: ${{ steps.version.outputs.name }}
         run: |
           ASSETS="dist/smarttube_glass.apk dist/smarttube_glass_arm64-v8a.apk dist/smarttube_glass_armeabi-v7a.apk dist/smarttube_glass.json"
-          gh release create "v$NAME" $ASSETS --target "$(git rev-parse HEAD)" --title "SmartTube Glass $NAME" --notes-file dist/notes.md
           gh release view latest > /dev/null 2>&1 \
             || gh release create latest --target "$(git rev-parse HEAD)" --title "Latest" --notes "Dernière version de SmartTube Glass (lue par la mise à jour intégrée)." --latest=false
           gh release upload latest $ASSETS --clobber
+          gh release create "v$NAME" $ASSETS --target "$(git rev-parse HEAD)" --title "SmartTube Glass $NAME" --notes-file dist/notes.md
 
       - name: Report failure
         if: failure()
         run: |
-          gh issue create \
-            --title "Build/release échoué : $(git rev-parse --short HEAD)" \
-            --body "Le workflow de build a échoué : ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          bash glass/scripts/open-issue.sh \
+            "Build/release échoué : $(git rev-parse --short HEAD)" \
+            "Le workflow de build a échoué : ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

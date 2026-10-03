@@ -83,7 +83,10 @@ smarttubetv/src/stglass/
 5. `glass/scripts/check-overrides.sh` (la révision repart à 0 d'elle-même : aucun tag `v<nouvelle version>-glass.*` n'existe encore) :
    - un fichier upstream surchargé a changé → ouvre une issue « Surcharge à revoir » (non bloquant :
      la surcharge reste valable tant que le build passe, mais elle masque le changement upstream).
-6. Push `glass` → déclenche `build-release`.
+6. Push `glass` avec un jeton personnel (`GLASS_SYNC_TOKEN`, permissions Contents + Workflows + Issues) →
+   déclenche `build-release`. *(Révision après relecture : `GITHUB_TOKEN` ne peut pas pousser de commits
+   modifiant `.github/workflows`, ce que font les versions upstream.)* Toute issue ouverte par la CI est
+   dédoublonnée par titre.
 
 ### 4.2 `build-release.yml` — sur push `glass` + manuel
 
@@ -91,7 +94,9 @@ smarttubetv/src/stglass/
 2. Reconstitue `keystore.properties` + keystore depuis les secrets
    `GLASS_KEYSTORE_BASE64`, `GLASS_KEYSTORE_PASSWORD`, `GLASS_KEY_ALIAS`, `GLASS_KEY_PASSWORD`.
 3. `./gradlew :smarttubetv:testStglassDebugUnitTest :smarttubetv:assembleStglassRelease`.
-4. Si `versionCode` déjà publié → fin (évite les doublons sur un push doc).
+4. Si HEAD est déjà publié, ou si seuls `docs/`, les `.md` ou la maquette ont changé depuis la dernière
+   release → fin (évite les fausses mises à jour). La release `latest` est mise à jour avant la release
+   versionnée, dont le tag marque HEAD comme publié : un échec en cours de route se corrige en relançant.
    Sinon : release GitHub `v<versionName>` + mise à jour de la release `latest` avec :
    - `smarttube_glass_arm64-v8a.apk`, `smarttube_glass_armeabi-v7a.apk`, `smarttube_glass.apk` (universel)
    - `smarttube_glass.json` (format `AppVersionChecker`) :

@@ -71,17 +71,33 @@ Pour signer en local, créer `keystore.properties` à la racine (ignoré par git
    issues ouvertes par la synchro et `cleanup` effacerait l'historique des exécutions. On ne les supprime pas
    du repo, pour ne pas créer de conflits avec SmartTube.
 4. Ajouter les 4 secrets de signature.
-5. Pousser la branche : `git push -u origin glass`, puis *Settings* → *General* → *Default branch* = `glass`.
+5. Créer le jeton de synchronisation : GitHub → *Settings* (de ton compte) → *Developer settings* →
+   *Personal access tokens* → *Fine-grained tokens* → *Generate new token* :
+   accès au seul dépôt `SmartTube-Glass`, permissions *Contents : Read and write*, *Workflows : Read and write*,
+   *Issues : Read and write*, durée la plus longue proposée. L'ajouter comme secret `GLASS_SYNC_TOKEN`.
+   Il est nécessaire parce que GitHub interdit au jeton intégré des workflows de pousser des commits qui
+   modifient des fichiers de workflow, ce que font régulièrement les versions de SmartTube. Pense à le
+   renouveler avant son expiration : la synchro ouvrira une issue « Sync upstream : échec » sinon.
+6. Pousser la branche : `git push -u origin glass`, puis *Settings* → *General* → *Default branch* = `glass`.
 
 ## Synchronisation avec SmartTube
 
 `sync-upstream` tourne chaque jour à 04:17 UTC (et à la demande depuis l'onglet *Actions*) :
 
 1. Il cherche la dernière version **stable** de SmartTube (tag `X.YYs`) ; les betas sont ignorées.
-2. Il la fusionne dans `glass`, puis lance `build-release`, qui compile, signe et publie.
+2. Il la fusionne dans `glass` et pousse avec `GLASS_SYNC_TOKEN`, ce qui déclenche `build-release`
+   (compilation, signature, publication).
 3. **Conflit** : rien n'est publié, une issue « Sync upstream … : conflit » liste les fichiers.
 4. **Surcharge masquant un changement** : une issue « Surcharges à revoir » liste les fichiers SmartTube
    modifiés que le fork remplace. La publication continue.
+5. **Workflows SmartTube modifiés** : une issue les liste ; vérifier dans l'onglet *Actions* que ceux qui
+   ne servent pas au fork restent désactivés.
+
+Chaque problème n'ouvre qu'une issue tant qu'elle reste ouverte.
+
+`build-release` ne publie rien si seuls la doc, les fichiers `.md` ou la maquette ont changé depuis la
+dernière version : la TV ne se voit pas proposer de fausse mise à jour. Si une publication échoue en
+cours de route, relancer simplement le workflow.
 
 Résoudre un conflit à la main :
 

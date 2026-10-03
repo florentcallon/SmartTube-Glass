@@ -2,4 +2,6 @@
 <resources>
     <string translatable="false" name="app_name"><![CDATA[SmartTube Glass]]></string>
     <string translatable="false" name="browse_title"><![CDATA[SmartTube Glass]]></string>
+    <!-- Must match the provider authority (${applicationId}) and res/xml/searchable.xml -->
+    <string translatable="false" name="search_authority">org.smarttube.glass</string>
 </resources>

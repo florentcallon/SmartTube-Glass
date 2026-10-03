@@ -1,2 +1,3 @@
 # sha1  upstream-path (written with: glass/scripts/check-overrides.sh --add <upstream-path>)
 e9d25cf7fafd86de1606b6536f07b1eddd882696  leanbackassistant/src/ststable/res/xml/searchable.xml
+7df647b8fdc2643e327788c93e53e9da15e7586f  leanbackassistant/src/ststable/res/values/strings.xml
