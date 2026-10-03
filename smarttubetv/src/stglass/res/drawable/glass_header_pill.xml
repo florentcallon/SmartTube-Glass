@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Side menu entry (spec §6.1). Focused = lighter glass with a border; activated = current section
-     (set by GlassHeaders), stays visible in the icon rail. drawable-v23 adds the accent bar. -->
+     (set by GlassHeaders, which also turns its icon to the accent colour), stays visible in the icon rail. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_focused="true">
         <shape android:shape="rectangle">

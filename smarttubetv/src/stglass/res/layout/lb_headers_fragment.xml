@@ -16,14 +16,16 @@
 -->
 <!-- SmartTube Glass override of leanback-1.0.0/src/main/res/layout/lb_headers_fragment.xml:
      floating glass panel behind the headers. When collapsed, BrowseSupportFragment narrows this root
-     to lb_browse_headers_rail_width (88dp); its padding clips the labels, leaving the icons. -->
+     to lb_browse_headers_rail_width (88dp): the grid is clamped to 72dp, so pills shrink to 24-72dp and
+     labels (from 80dp) get no room. Grid top/bottom padding clips items to the panel; with
+     WINDOW_ALIGN_NO_EDGE the focused item keeps its fixed offset from the grid top. -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/browse_headers_root"
     android:transitionGroup="true"
     android:layout_width="@dimen/lb_browse_headers_width"
     android:layout_height="match_parent"
-    android:paddingEnd="@dimen/lb_browse_header_padding_end"
+    android:paddingEnd="16dp"
     android:elevation="@dimen/lb_browse_headers_z"
     android:background="@drawable/glass_headers_panel"
     >
@@ -32,6 +34,9 @@
         android:layout_width="@dimen/lb_browse_headers_width"
         android:layout_height="match_parent"
         android:paddingStart="24dp"
+        android:paddingTop="88dp"
+        android:paddingBottom="24dp"
+        android:clipToPadding="true"
         style="?attr/headersVerticalGridStyle"/>
     <!-- Kept for HeadersSupportFragment (it paints the brand colour fade on it); unused by the panel -->
     <View

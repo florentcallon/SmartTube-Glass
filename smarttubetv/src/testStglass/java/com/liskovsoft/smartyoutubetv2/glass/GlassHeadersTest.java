@@ -6,6 +6,9 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.MeasureSpec;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.widget.ImageView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import com.liskovsoft.smartyoutubetv2.tv.R;
@@ -18,6 +21,8 @@ import org.robolectric.annotation.ConscryptMode;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
@@ -46,8 +51,9 @@ public class GlassHeadersTest {
 
     @Test
     public void pillIs44dpHighAndFillsTheExpandedPanel() {
-        // Expanded panel: grid 262dp wide (270 - 8 root padding) minus 24dp grid padding = 238dp available.
-        View item = measuredHeader(238);
+        // Expanded: grid 254dp wide (270 - 16 root paddingEnd) minus 24dp grid padding = 230dp available;
+        // the pill (24-254dp) ends 8dp before the panel edge (262dp).
+        View item = measuredHeader(230);
 
         assertEquals(44, item.getMeasuredHeight());
         assertEquals(230, item.getMeasuredWidth());
@@ -55,8 +61,32 @@ public class GlassHeadersTest {
 
     @Test
     public void pillShrinksToTheRail() {
-        // Collapsed: grid clamped to 80dp minus 24dp padding = 56dp available.
-        assertEquals(56, measuredHeader(56).getMeasuredWidth());
+        // Collapsed: grid clamped to 72dp (88 - 16) minus 24dp padding = 48dp: pill 24-72dp inside the 16-80dp panel.
+        assertEquals(48, measuredHeader(48).getMeasuredWidth());
+    }
+
+    @Test
+    public void currentSectionIconTakesTheAccentColour() {
+        View item = LayoutInflater.from(context()).inflate(R.layout.icon_header_item, null);
+        ImageView icon = item.findViewById(R.id.header_icon);
+        icon.setImageDrawable(new ColorDrawable(Color.WHITE));
+
+        GlassHeaders.tintIcon(item, true, 0xFFFF0033);
+        assertNotNull(icon.getColorFilter());
+
+        GlassHeaders.tintIcon(item, false, 0xFFFF0033);
+        assertNull(icon.getColorFilter());
+    }
+
+    @Test
+    public void channelAvatarsAreNeverTinted() {
+        View item = LayoutInflater.from(context()).inflate(R.layout.icon_header_item, null);
+        ImageView icon = item.findViewById(R.id.header_icon);
+        icon.setTag(com.bumptech.glide.R.id.glide_custom_view_target_tag, new Object()); // loaded by Glide
+
+        GlassHeaders.tintIcon(item, true, 0xFFFF0033);
+
+        assertNull(icon.getColorFilter());
     }
 
     @Test

@@ -97,8 +97,8 @@ public class GlassThemeTest {
             assertEquals(8, stylePaddingDp(context, R.attr.rowHorizontalGridStyle, android.R.attr.paddingStart));
             assertEquals(16, stylePaddingDp(context, R.attr.rowHorizontalGridStyle, android.R.attr.paddingEnd));
             assertEquals(8, stylePaddingDp(context, R.attr.rowHeaderDockStyle, android.R.attr.paddingStart));
-            // Title (search, account) starts after the rail: 88 + 8dp
-            assertEquals(96, stylePaddingDp(context, R.attr.browseTitleViewStyle, android.R.attr.paddingStart));
+            // Title (search, account) left-aligned above the panel, which starts below it
+            assertEquals(24, stylePaddingDp(context, R.attr.browseTitleViewStyle, android.R.attr.paddingStart));
         }
     }
 

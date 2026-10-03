@@ -2,8 +2,8 @@
 <!-- SmartTube Glass override of smarttubetv/src/main/res/layout/icon_header_item.xml: 44dp pill entry.
      IconHeaderItemPresenter inflates it with a null parent, so layout_* values are dropped: size comes from
      minHeight/minWidth, the 8dp inset from the grid paddingStart (24dp).
-     Geometry (spec §6.1): pill from 24dp, icon at 36-60dp (centred in the 16-80dp rail), label from 80dp,
-     where the collapsed menu ends; in the rail the pill shrinks to the 56dp left and the label to nothing. -->
+     Geometry (spec §6.1): pill from 24dp, icon at 36-60dp (centred in the 16-80dp rail), label from 80dp.
+     Collapsed, the grid ends at 72dp: the pill shrinks to 24-72dp and the label gets no room. -->
 <androidx.leanback.widget.NonOverlappingLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"

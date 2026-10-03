@@ -17,7 +17,7 @@
         <item name="android:paddingStart">8dp</item>
     </style>
     <style name="Glass.TitleView" parent="Widget.Leanback.TitleView">
-        <item name="android:paddingStart">96dp</item>
+        <item name="android:paddingStart">24dp</item>
     </style>
 
     <!-- Glass Noir -->
@@ -27,7 +27,7 @@
         <!-- The side panel is drawn by lb_headers_fragment.xml -->
         <item name="brandColor">@android:color/transparent</item>
         <!-- Room for the 88dp icon rail: grids keep upstream's usable width (GridFragmentHelper sizes
-             columns from the display width), the title starts after the rail. -->
+             columns from the display width). The title sits left-aligned above the side panel. -->
         <item name="itemsVerticalGridStyle">@style/Glass.GridView</item>
         <item name="rowHorizontalGridStyle">@style/Glass.RowView</item>
         <item name="rowHeaderDockStyle">@style/Glass.RowHeaderDock</item>
