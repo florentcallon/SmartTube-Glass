@@ -1,0 +1,81 @@
+name: Sync upstream SmartTube
+
+on:
+  schedule:
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    outputs:
+      merged: ${{ steps.merge.outputs.merged }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: glass
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch upstream tags
+        run: |
+          git remote add upstream https://github.com/yuliskov/SmartTube.git
+          git fetch upstream --tags --force
+
+      - name: Merge latest stable tag
+        id: merge
+        run: |
+          TAG=$(git tag -l | bash glass/scripts/latest-stable-tag.sh)
+          echo "Latest upstream stable: $TAG"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          if git merge-base --is-ancestor "$TAG" HEAD; then
+            echo "Nothing to merge."
+            echo "merged=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if ! git merge --no-edit -m "Merge upstream $TAG" "$TAG"; then
+            FILES=$(git diff --name-only --diff-filter=U)
+            git merge --abort
+            BODY=$(printf 'La fusion de la version stable `%s` de SmartTube dans `glass` a échoué.\n\nFichiers en conflit :\n\n%s\n\nRésolution manuelle : voir glass/README.md, section Synchronisation.' "$TAG" "$(echo "$FILES" | sed 's/^/- /')")
+            gh issue create --title "Sync upstream $TAG : conflit" --body "$BODY"
+            exit 1
+          fi
+          git submodule update --init --recursive
+          echo "merged=true" >> "$GITHUB_OUTPUT"
+
+      - name: Check overridden upstream files
+        if: steps.merge.outputs.merged == 'true'
+        run: |
+          set +e
+          CHANGED=$(bash glass/scripts/check-overrides.sh)
+          CODE=$?
+          set -e
+          if [ "$CODE" -eq 2 ]; then
+            BODY=$(printf 'Ces fichiers SmartTube que le fork remplace ont changé dans `%s`. Notre copie masque ces changements : à comparer et reporter, puis mettre à jour glass/overrides.lock.\n\n%s' "${{ steps.merge.outputs.tag }}" "$(echo "$CHANGED" | sed 's/^/- /')")
+            gh issue create --title "Surcharges à revoir après ${{ steps.merge.outputs.tag }}" --body "$BODY"
+          elif [ "$CODE" -ne 0 ]; then
+            exit 1
+          fi
+
+      - name: Push
+        if: steps.merge.outputs.merged == 'true'
+        run: git push origin glass "refs/tags/${{ steps.merge.outputs.tag }}"
+
+  release:
+    needs: sync
+    if: needs.sync.outputs.merged == 'true'
+    permissions:
+      contents: write
+      issues: write
+    uses: ./.github/workflows/build-release.yml
+    secrets: inherit
