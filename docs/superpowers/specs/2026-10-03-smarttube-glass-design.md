@@ -80,7 +80,7 @@ smarttubetv/src/stglass/
 3. Si ce tag est déjà ancêtre de `glass` → fin.
 4. `git merge <tag>` (+ `git submodule update --recursive`).
    - Conflit → abort, ouvre une issue « Sync upstream <tag> : conflit » listant les fichiers, fin en échec.
-5. Remet `glassRevision` à 0, commit, `glass/scripts/check-overrides.sh` :
+5. `glass/scripts/check-overrides.sh` (la révision repart à 0 d'elle-même : aucun tag `v<nouvelle version>-glass.*` n'existe encore) :
    - un fichier upstream surchargé a changé → ouvre une issue « Surcharge à revoir » (non bloquant :
      la surcharge reste valable tant que le build passe, mais elle masque le changement upstream).
 6. Push `glass` → déclenche `build-release`.
