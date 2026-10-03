@@ -725,6 +725,9 @@ public class BrowseSupportFragment extends BaseSupportFragment {
     boolean mCanShowHeaders = true;
     private int mContainerListMarginStart;
     private int mContainerListAlignTop;
+    // SmartTube Glass: optional icon rail kept on screen when headers are hidden (0 = stock behaviour)
+    private int mHeadersRailWidth;
+    private int mHeadersExpandedWidth;
     private boolean mMainFragmentScaleEnabled = true;
     OnItemViewSelectedListener mExternalOnItemViewSelectedListener;
     private OnItemViewClickedListener mOnItemViewClickedListener;
@@ -1189,6 +1192,8 @@ public class BrowseSupportFragment extends BaseSupportFragment {
                 R.styleable.LeanbackTheme_browseRowsMarginTop, context.getResources()
                 .getDimensionPixelSize(R.dimen.lb_browse_rows_margin_top));
         ta.recycle();
+        int railResId = context.getResources().getIdentifier("lb_browse_headers_rail_width", "dimen", context.getPackageName());
+        mHeadersRailWidth = railResId != 0 ? context.getResources().getDimensionPixelSize(railResId) : 0;
 
         readArguments(getArguments());
 
@@ -1279,6 +1284,7 @@ public class BrowseSupportFragment extends BaseSupportFragment {
         }
 
         mHeadersSupportFragment.setHeadersGone(!mCanShowHeaders);
+        mHeadersSupportFragment.setChildrenVisibleWhenDisabled(mHeadersRailWidth > 0);
         if (mHeaderPresenterSelector != null) {
             mHeadersSupportFragment.setPresenterSelector(mHeaderPresenterSelector);
         }
@@ -1451,7 +1457,15 @@ public class BrowseSupportFragment extends BaseSupportFragment {
         View containerList;
         containerList = mHeadersSupportFragment.getView();
         lp = (MarginLayoutParams) containerList.getLayoutParams();
-        lp.setMarginStart(onScreen ? 0 : -mContainerListMarginStart);
+        if (mHeadersRailWidth > 0) {
+            if (mHeadersExpandedWidth == 0) {
+                mHeadersExpandedWidth = lp.width;
+            }
+            lp.setMarginStart(0);
+            lp.width = onScreen ? mHeadersExpandedWidth : mHeadersRailWidth;
+        } else {
+            lp.setMarginStart(onScreen ? 0 : -mContainerListMarginStart);
+        }
         containerList.setLayoutParams(lp);
     }
 
@@ -1464,7 +1478,7 @@ public class BrowseSupportFragment extends BaseSupportFragment {
 
     private void expandMainFragment(boolean expand) {
         MarginLayoutParams params = (MarginLayoutParams) mScaleFrameLayout.getLayoutParams();
-        params.setMarginStart(!expand ? mContainerListMarginStart : 0);
+        params.setMarginStart(!expand ? mContainerListMarginStart : mHeadersRailWidth);
         mScaleFrameLayout.setLayoutParams(params);
         mMainFragmentAdapter.setExpand(expand);
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Width of the collapsed side menu (icon rail), read by name by BrowseSupportFragment.
+         Ends exactly where header labels start (see icon_header_item.xml), so only icons show. -->
+    <dimen name="lb_browse_headers_rail_width">88dp</dimen>
+    <!-- 8dp between the 44dp pill entries (upstream: 10dp between bare rows) -->
+    <dimen name="browse_headers_vertical_spacing">8dp</dimen>
+</resources>

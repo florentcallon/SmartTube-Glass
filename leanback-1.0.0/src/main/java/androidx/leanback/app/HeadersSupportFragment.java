@@ -82,6 +82,8 @@ public class HeadersSupportFragment extends BaseRowSupportFragment {
     private OnHeaderViewSelectedListener mOnHeaderViewSelectedListener;
     OnHeaderClickedListener mOnHeaderClickedListener;
     private boolean mHeadersEnabled = true;
+    // SmartTube Glass: keep the header items drawn while disabled (icon rail)
+    private boolean mChildrenVisibleWhenDisabled;
     private boolean mHeadersGone = false;
     private int mBackgroundColor;
     private boolean mBackgroundColorSet;
@@ -186,7 +188,7 @@ public class HeadersSupportFragment extends BaseRowSupportFragment {
         if (listView != null) {
             getView().setVisibility(mHeadersGone ? View.GONE : View.VISIBLE);
             if (!mHeadersGone) {
-                if (mHeadersEnabled) {
+                if (mHeadersEnabled || mChildrenVisibleWhenDisabled) {
                     listView.setChildrenVisibility(View.VISIBLE);
                 } else {
                     listView.setChildrenVisibility(View.INVISIBLE);
@@ -197,6 +199,11 @@ public class HeadersSupportFragment extends BaseRowSupportFragment {
 
     void setHeadersEnabled(boolean enabled) {
         mHeadersEnabled = enabled;
+        updateListViewVisibility();
+    }
+
+    void setChildrenVisibleWhenDisabled(boolean visible) {
+        mChildrenVisibleWhenDisabled = visible;
         updateListViewVisibility();
     }
 
