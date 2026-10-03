@@ -175,6 +175,9 @@ conteneur d'en-têtes de `BrowseFragment` par `GlassPanelView` (marge 16 dp, ray
 Contenu : logo + avatar/nom du compte en tête (si connecté), entrées en pills icône+texte, entrée active
 teintée accent + barre gauche, carte verre « Réglages » en bas. Repliée : colonne d'icônes verre ;
 dépliage animé 180 ms. Badges uniquement si une donnée existe déjà.
+*Validé sur maquette :* entrées de 44 dp espacées de 8 dp ; la liste des entrées défile entre l'en-tête
+(logo + compte) et la carte « Réglages », en gardant la sélection centrée (fondu en haut et en bas) ; la
+version n'est pas dans le menu (elle est dans Réglages → À propos).
 
 ### 6.2 Grille des vidéos
 Surcharge de `lb_image_card_view*.xml`, `lb_video_card_view.xml`, `channel_card.xml`, `settings_card.xml`,
@@ -187,6 +190,9 @@ Surcharge de `lb_playback_transport_controls_row.xml`, `lb_control_bar.xml`, `lb
 (+ drawables de seekbar). Barre de contrôles verre flottante (rayon 24 dp), capsule titre/chaîne en haut
 à gauche, barre de progression épaisse arrondie avec curseur accent, aperçu dans un cadre verre, boutons
 ronds. Teinte uniquement (cf. 5.2).
+*Validé sur maquette :* précédent / lecture-pause / suivant **centrés** sur la barre (lecture-pause plus
+grand, accent au focus), temps écoulé / durée à gauche, autres boutons (j'aime, sous-titres, qualité,
+vitesse, plus) alignés à droite.
 
 ### 6.4 Dialogues et réglages
 Surcharge des layouts de préférences (`leanback_preference_fragment.xml`,
@@ -217,6 +223,8 @@ upstream les référence) ; chaque surcharge est inscrite dans `glass/overrides.
 1. **Socle** : flavor, versions, update_urls, CI sync + build + release, signature, première release installable.
 2. **Système glass** : thèmes, attributs, `GlassPanelView`, `GlassBlurPolicy`, fond d'ambiance, police, `GlassInitProvider`.
 3. Navigation latérale. 4. Grille. 5. Lecteur. 6. Dialogues & réglages.
+
+Maquette de référence : `glass/mockup/index.html` (publiée sur https://claude.ai/artifact/2az23EUV9DtE5WFvSBJYho).
 
 Chaque lot se termine par une release installée et vérifiée sur la box.
 

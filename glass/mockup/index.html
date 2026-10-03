@@ -80,7 +80,7 @@ header.top p { margin: 4px 0 0; color: var(--page-muted); }
 .scrim { position: absolute; inset: 0; background: var(--scrim); }
 
 /* Sidebar */
-.side { position: absolute; left: 16px; top: 16px; bottom: 16px; width: 228px; border-radius: var(--r-panel); padding: 18px 12px 12px; display: flex; flex-direction: column; gap: 4px; transition: width .18s cubic-bezier(.4,0,.2,1); overflow: hidden; z-index: 2; }
+.side { position: absolute; left: 16px; top: 16px; bottom: 16px; width: 228px; border-radius: var(--r-panel); padding: 18px 12px 12px; display: flex; flex-direction: column; gap: 0; transition: width .18s cubic-bezier(.4,0,.2,1); overflow: hidden; z-index: 2; }
 .side.collapsed { width: 72px; }
 .brand { display: flex; align-items: center; gap: 10px; padding: 0 10px 12px; height: 34px; }
 .brand-mark { flex: none; width: 26px; height: 26px; border-radius: 8px; background: var(--accent); display: grid; place-items: center; box-shadow: 0 4px 14px -2px var(--accent-soft); }
@@ -92,16 +92,18 @@ header.top p { margin: 4px 0 0; color: var(--page-muted); }
 .account-text { min-width: 0; white-space: nowrap; }
 .account-text b { display: block; font-size: 14px; font-weight: 600; }
 .account-text small { color: var(--text2); font-size: 12px; }
-.sec-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: .12em; color: var(--text2); padding: 10px 12px 4px; white-space: nowrap; transition: opacity .15s; }
+.nav-list { position: relative; flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: 8px; margin-inline: -12px; padding: 8px 12px; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12px, #000 calc(100% - 16px), transparent); mask-image: linear-gradient(180deg, transparent 0, #000 12px, #000 calc(100% - 16px), transparent); }
+.nav-list > * { flex: none; }
+.sec-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: .12em; color: var(--text2); padding: 12px 12px 0; white-space: nowrap; transition: opacity .15s; }
 .side.collapsed .sec-label, .side.collapsed .lbl, .side.collapsed .account-text, .side.collapsed .brand-name, .side.collapsed .foot-text { opacity: 0; }
-.nav { position: relative; display: flex; align-items: center; gap: 12px; height: 38px; padding: 0 12px; border-radius: var(--r-pill); color: var(--text2); font-size: 14px; font-weight: 500; white-space: nowrap; cursor: pointer; transition: background .15s, color .15s; }
+.nav { position: relative; display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 12px; border-radius: var(--r-pill); color: var(--text2); font-size: 14px; font-weight: 500; white-space: nowrap; cursor: pointer; transition: background .15s, color .15s; }
 .nav svg { flex: none; width: 20px; height: 20px; }
 .nav .lbl { transition: opacity .15s; }
 .nav.active { color: var(--text); background: var(--accent-soft); }
-.nav.active::before { content: ""; position: absolute; left: -12px; top: 9px; bottom: 9px; width: 3px; border-radius: 0 3px 3px 0; background: var(--accent); }
+.nav.active::before { content: ""; position: absolute; left: -12px; top: 12px; bottom: 12px; width: 3px; border-radius: 0 3px 3px 0; background: var(--accent); }
 .nav.focused { color: var(--text); background: var(--panel-focus); box-shadow: inset 0 0 0 1px var(--stroke-top); }
 .nav.active.focused { background: color-mix(in srgb, var(--accent) 34%, transparent); }
-.side-foot { margin-top: auto; border-radius: 18px; padding: 10px; background: rgba(255,255,255,.04); border: 1px solid var(--stroke); display: grid; gap: 8px; }
+.side-foot { margin-top: 8px; border-radius: 18px; padding: 6px; background: rgba(255,255,255,.04); border: 1px solid var(--stroke); display: grid; gap: 8px; }
 .foot-text { font-size: 11.5px; color: var(--text2); padding: 0 4px; white-space: nowrap; transition: opacity .15s; }
 .side.collapsed .side-foot { padding: 4px; background: transparent; border-color: transparent; }
 
@@ -175,7 +177,9 @@ header.top p { margin: 4px 0 0; color: var(--page-muted); }
 .seek.focused .preview { display: block; }
 .preview .frame { height: 82px; border-radius: 10px; background-size: 260% 260%; }
 .preview span { display: block; text-align: center; font-size: 12px; font-weight: 600; padding-top: 4px; font-variant-numeric: tabular-nums; }
-.pctl { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+.pctl { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; margin-top: 10px; }
+.pc-center { display: flex; align-items: center; gap: 14px; }
+.pc-right { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
 .times { font-size: 12.5px; font-variant-numeric: tabular-nums; color: var(--text2); margin-right: 8px; min-width: 96px; }
 .times b { color: var(--text); font-weight: 600; }
 .btn { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: var(--text); cursor: pointer; transition: background .15s, transform .15s; flex: none; }
@@ -184,7 +188,6 @@ header.top p { margin: 4px 0 0; color: var(--page-muted); }
 .btn.txt { width: auto; padding: 0 14px; border-radius: 999px; font-size: 12.5px; font-weight: 600; }
 .btn.focused { background: var(--panel-focus); box-shadow: inset 0 0 0 1px var(--stroke-top), 0 0 20px -4px var(--accent); transform: scale(1.08); }
 .btn.big.focused { background: var(--accent); }
-.spacer { flex: 1; }
 
 /* Settings */
 .set-cats { position: absolute; left: 16px; top: 16px; bottom: 16px; width: 248px; border-radius: var(--r-panel); padding: 18px 12px; display: flex; flex-direction: column; gap: 4px; }
@@ -406,11 +409,10 @@ header.top p { margin: 4px 0 0; color: var(--page-muted); }
     $('#side').innerHTML = `
       <div class="brand"><div class="brand-mark"><svg viewBox="0 0 10 12"><path d="M0 0v12l10-6z"/></svg></div><div class="brand-name">SmartTube <span>Glass</span></div></div>
       <div class="account"><div class="avatar">FC</div><div class="account-text"><b>Bonjour, Florent</b><small>Compte YouTube connecté</small></div></div>
-      ${navData.map((n) => n.sec ? `<div class="sec-label">${n.sec}</div>` :
-        `<div class="nav${n.id === st.activeNav ? ' active' : ''}" data-zone="side" data-r="${r++}" data-c="0" data-act="nav:${n.id}">${ic(n.i)}<span class="lbl">${n.l}</span></div>`).join('')}
+      <div class="nav-list" id="nav-list">${navData.map((n) => n.sec ? `<div class="sec-label">${n.sec}</div>` :
+        `<div class="nav${n.id === st.activeNav ? ' active' : ''}" data-zone="side" data-r="${r++}" data-c="0" data-act="nav:${n.id}">${ic(n.i)}<span class="lbl">${n.l}</span></div>`).join('')}</div>
       <div class="side-foot">
         <div class="nav" data-zone="side" data-r="${r++}" data-c="0" data-act="settings">${ic('settings')}<span class="lbl">Réglages</span></div>
-        <div class="foot-text">Version 32.56-glass.0</div>
       </div>`;
   }
   function renderRows() {
@@ -443,15 +445,18 @@ header.top p { margin: 4px 0 0; color: var(--page-muted); }
     const q = qualities[st.quality].replace(/ .*/, '').replace('Auto', 'Auto');
     $('#pctl').innerHTML = `
       <div class="times"><b id="tcur">${fmt(st.t)}</b> / ${v.live ? 'Direct' : fmt(st.dur)}</div>
+      <div class="pc-center">
       <div class="btn" data-zone="ctrl" data-r="0" data-c="0" data-act="seek:-1">${ic('prev')}</div>
       <div class="btn big" data-zone="ctrl" data-r="0" data-c="1" data-act="toggle" id="ppbtn">${ic(st.playing ? 'pause' : 'play')}</div>
       <div class="btn" data-zone="ctrl" data-r="0" data-c="2" data-act="seek:1">${ic('next')}</div>
-      <div class="spacer"></div>
+      </div>
+      <div class="pc-right">
       <div class="btn" data-zone="ctrl" data-r="0" data-c="3" data-act="none">${ic('like')}</div>
       <div class="btn" data-zone="ctrl" data-r="0" data-c="4" data-act="none">${ic('cc')}</div>
       <div class="btn txt" data-zone="ctrl" data-r="0" data-c="5" data-act="quality" id="qbtn">${q}</div>
       <div class="btn txt" data-zone="ctrl" data-r="0" data-c="6" data-act="none">1,0×</div>
-      <div class="btn" data-zone="ctrl" data-r="0" data-c="7" data-act="none">${ic('more')}</div>`;
+      <div class="btn" data-zone="ctrl" data-r="0" data-c="7" data-act="none">${ic('more')}</div>
+      </div>`;
     updateSeek();
     $('#video').classList.toggle('paused', !st.playing);
   }
@@ -501,6 +506,10 @@ header.top p { margin: 4px 0 0; color: var(--page-muted); }
       const inSide = z === 'side';
       $('#side').classList.toggle('collapsed', !inSide);
       $('#content').classList.toggle('wide', !inSide);
+      if (inSide) {
+        const el = find(z, r, c), list = $('#nav-list');
+        if (list.contains(el)) list.scrollTo({ top: el.offsetTop - list.clientHeight / 2 + el.offsetHeight / 2, behavior: 'smooth' });
+      }
       if (z === 'rows') {
         const row = $$('.row', $('#rows'))[r];
         $('#rows').style.transform = `translateY(${-row.offsetTop}px)`;
