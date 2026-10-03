@@ -1,7 +1,7 @@
 # SmartTube Glass — Design
 
 Date : 2026-10-03
-Statut : en revue
+Statut : validé
 
 ## 1. Objectif
 
@@ -40,7 +40,7 @@ Tout le reste passe par :
 
 ## 3. Repo, branches, versions
 
-- Repo public `<compte>/SmartTube-Glass`, fork GitHub de `yuliskov/SmartTube`.
+- Repo public `florentcallon/SmartTube-Glass`, fork GitHub de `yuliskov/SmartTube`.
 - Remotes locaux : `upstream` = yuliskov/SmartTube, `origin` = fork.
 - Branche par défaut `glass`, partie du tag stable `32.56s`.
 - Sous-modules inchangés (URLs upstream).
@@ -111,7 +111,7 @@ smarttubetv/src/stglass/
 ### 4.3 Mise à jour côté TV
 
 `src/stglass/res/values/update_urls.xml` surcharge `update_urls` →
-`https://github.com/<compte>/SmartTube-Glass/releases/download/latest/smarttube_glass.json`.
+`https://github.com/florentcallon/SmartTube-Glass/releases/download/latest/smarttube_glass.json`.
 Les liens upstream vers les APK officiels (`StableRestorePresenter`, bridges) sont laissés tels quels.
 
 ## 5. Système visuel glass
