@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Settings card focus (free-text style): accent outline instead of a filled title strip -->
+<!-- Focus outline of settings and channel cards (free-text style), on views that get focused themselves -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_focused="true">
         <shape android:shape="rectangle">

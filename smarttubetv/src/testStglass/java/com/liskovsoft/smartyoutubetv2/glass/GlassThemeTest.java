@@ -137,13 +137,33 @@ public class GlassThemeTest {
         }
     }
 
+    /**
+     * card_selected_background_white is the focus fill of tag chips and settings titles (video and channel
+     * cards use the transparent cardSelectedBackground attribute): an opaque accent keeps focus visible.
+     */
     @Test
     public void glassSchemesUseFreeTextCardColours() {
-        Context context = glassContext(R.style.App_Theme_Glass_Rose_Browse);
+        int[][] themeAccents = {{R.style.App_Theme_Glass_Noir_Browse, 0xFFFF0033}, {R.style.App_Theme_Glass_Rose_Browse, 0xFFFF5A5F}};
+        for (int[] themeAccent : themeAccents) {
+            Context context = glassContext(themeAccent[0]);
+            assertEquals(0xC7FFFFFF, ContextCompat.getColor(context, R.color.card_default_text));
+            assertEquals(0xFFFFFFFF, ContextCompat.getColor(context, R.color.card_selected_text_grey));
+            assertEquals(themeAccent[1], ContextCompat.getColor(context, R.color.card_selected_background_white));
+        }
+    }
 
-        assertEquals(0xC7FFFFFF, ContextCompat.getColor(context, R.color.card_default_text));
-        assertEquals(0xFFFFFFFF, ContextCompat.getColor(context, R.color.card_selected_text_grey));
-        assertEquals(0x00000000, ContextCompat.getColor(context, R.color.card_selected_background_white));
+    @Test
+    public void rowTitlesAreSemiBold() {
+        Context context = glassContext(R.style.App_Theme_Glass_Noir_Browse);
+        TypedValue style = new TypedValue();
+        assertTrue(context.getTheme().resolveAttribute(R.attr.rowHeaderStyle, style, true));
+        android.content.res.TypedArray a = context.obtainStyledAttributes(style.resourceId, new int[]{android.R.attr.textStyle});
+        try {
+            // bold (700) maps to Figtree's 600 entry in glass_figtree.xml
+            assertEquals(android.graphics.Typeface.BOLD, a.getInt(0, 0));
+        } finally {
+            a.recycle();
+        }
     }
 
     @Test

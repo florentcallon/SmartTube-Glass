@@ -29,6 +29,8 @@
     </style>
     <style name="Glass.RowHeader" parent="Widget.Leanback.Row.Header">
         <item name="android:fontFamily">@font/glass_figtree</item>
+        <!-- bold (700) selects the 600 entry of glass_figtree: semi-bold row titles (spec §6.2) -->
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!-- Rounded card progress bar -->
@@ -59,7 +61,8 @@
         <item name="cardSelectedBackground">@android:color/transparent</item>
         <item name="glassCardText">#C7FFFFFF</item>
         <item name="glassCardSelectedText">#FFFFFF</item>
-        <item name="glassCardSelectedBackground">@android:color/transparent</item>
+        <!-- Focus fill of tag chips and settings titles (opaque: translucent layers stack) -->
+        <item name="glassCardSelectedBackground">@color/glass_noir_accent</item>
         <item name="android:colorAccent" tools:targetApi="21">@color/glass_noir_accent</item>
         <item name="glassScrim">@color/glass_noir_scrim</item>
         <item name="glassTint">@color/glass_noir_tint</item>
@@ -108,7 +111,8 @@
         <item name="cardSelectedBackground">@android:color/transparent</item>
         <item name="glassCardText">#C7FFFFFF</item>
         <item name="glassCardSelectedText">#FFFFFF</item>
-        <item name="glassCardSelectedBackground">@android:color/transparent</item>
+        <!-- Focus fill of tag chips and settings titles (opaque: translucent layers stack) -->
+        <item name="glassCardSelectedBackground">@color/glass_rose_accent</item>
         <item name="android:colorAccent" tools:targetApi="21">@color/glass_rose_accent</item>
         <item name="glassScrim">@color/glass_rose_scrim</item>
         <item name="glassTint">@color/glass_rose_tint</item>

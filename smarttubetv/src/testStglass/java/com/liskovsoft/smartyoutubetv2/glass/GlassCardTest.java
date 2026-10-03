@@ -69,6 +69,14 @@ public class GlassCardTest {
     }
 
     @Test
+    public void channelCardShowsFocusOutline() {
+        View card = LayoutInflater.from(context()).inflate(R.layout.channel_card, null);
+
+        assertTrue(card.isFocusable());
+        assertTrue("channel card needs a focus foreground", card.getForeground() != null);
+    }
+
+    @Test
     public void progressUsesGlassDrawable() {
         Context context = context();
         TypedValue style = new TypedValue();
