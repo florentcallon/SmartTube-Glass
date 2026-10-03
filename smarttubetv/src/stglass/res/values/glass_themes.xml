@@ -40,6 +40,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Glass.PlayerTime" parent="Widget.Leanback.PlaybackControlsTimeStyle">
+        <item name="android:fontFamily">@font/glass_figtree</item>
+    </style>
+
     <!-- Rounded card progress bar -->
     <style name="Glass.CardProgress" parent="ProgressBarHorizontal.Dark">
         <item name="android:progressDrawable">@drawable/glass_card_progress</item>
@@ -101,6 +105,14 @@
         <item name="glassAccent">@color/glass_noir_accent</item>
         <item name="glassTextSecondary">@color/glass_noir_text_secondary</item>
         <item name="glassPlayerTint">@color/glass_noir_player_tint</item>
+        <!-- Floating glass controls bar and title capsule (conservative insets: the upstream player is dense) -->
+        <item name="glassPlayerBar">@drawable/glass_player_bar</item>
+        <item name="glassPlayerBarInset">16dp</item>
+        <item name="glassPlayerBarPadding">8dp</item>
+        <item name="glassPlayerCapsule">@drawable/glass_player_capsule</item>
+        <item name="glassControlsAlignStart">false</item>
+        <item name="glassControlsCenter">true</item>
+        <item name="playbackControlsTimeStyle">@style/Glass.PlayerTime</item>
     </style>
     <style name="App.Theme.Glass.Noir.Preferences" parent="App.Theme.DarkGrey.Preferences">
         <item name="android:colorAccent" tools:targetApi="21">@color/glass_noir_accent</item>
@@ -162,6 +174,14 @@
         <item name="glassAccent">@color/glass_rose_accent</item>
         <item name="glassTextSecondary">@color/glass_rose_text_secondary</item>
         <item name="glassPlayerTint">@color/glass_rose_player_tint</item>
+        <!-- Floating glass controls bar and title capsule (conservative insets: the upstream player is dense) -->
+        <item name="glassPlayerBar">@drawable/glass_player_bar</item>
+        <item name="glassPlayerBarInset">16dp</item>
+        <item name="glassPlayerBarPadding">8dp</item>
+        <item name="glassPlayerCapsule">@drawable/glass_player_capsule</item>
+        <item name="glassControlsAlignStart">false</item>
+        <item name="glassControlsCenter">true</item>
+        <item name="playbackControlsTimeStyle">@style/Glass.PlayerTime</item>
     </style>
     <style name="App.Theme.Glass.Rose.Preferences" parent="App.Theme.DarkGrey.Preferences">
         <item name="android:colorAccent" tools:targetApi="21">@color/glass_rose_accent</item>

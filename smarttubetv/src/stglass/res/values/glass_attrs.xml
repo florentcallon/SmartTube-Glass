@@ -26,6 +26,14 @@
     <attr name="glassCardGlow" format="color" /> <!-- GlassGlowView behind the focused thumbnail -->
     <attr name="glassFocusOutline" format="reference" />
 
+    <!-- Player (lb_playback_transport_controls_row.xml) -->
+    <attr name="glassPlayerBar" format="reference" />
+    <attr name="glassPlayerBarInset" format="dimension" />
+    <attr name="glassPlayerBarPadding" format="dimension" />
+    <attr name="glassPlayerCapsule" format="reference" />
+    <attr name="glassControlsAlignStart" format="boolean" />
+    <attr name="glassControlsCenter" format="boolean" />
+
     <declare-styleable name="GlassRoundedFrameLayout">
         <attr name="glassCornerRadius" format="dimension" />
     </declare-styleable>

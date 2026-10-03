@@ -24,6 +24,13 @@
         <item name="glassBadgeRadius">0dp</item>
         <item name="glassCardFocus">@null</item>
         <item name="glassCardGlow">#00000000</item>
+        <!-- upstream player: no bar or capsule, primary controls aligned to the start -->
+        <item name="glassPlayerBar">@null</item>
+        <item name="glassPlayerBarInset">0dp</item>
+        <item name="glassPlayerBarPadding">0dp</item>
+        <item name="glassPlayerCapsule">@null</item>
+        <item name="glassControlsAlignStart">true</item>
+        <item name="glassControlsCenter">false</item>
         <item name="glassFocusOutline">@null</item>
     </style>
 </resources>
