@@ -9,6 +9,8 @@ public final class GlassAmbient {
     public static final int BLUR_RADIUS = 4;
     public static final int BLUR_PASSES = 3;
     public static final long DEBOUNCE_MS = 300;
+    /** Extra checks, DEBOUNCE_MS apart, while the focused thumbnail is still loading. */
+    public static final int MAX_RETRIES = 3;
 
     private GlassAmbient() {
     }

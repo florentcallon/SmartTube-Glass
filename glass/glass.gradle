@@ -27,6 +27,11 @@ android {
     }
 }
 
+// Upstream's Robolectric 4.6.1 cannot read Java 17 class files; glass tests run on JDK 17.
+dependencies {
+    testStglassImplementation 'org.robolectric:robolectric:4.11.1'
+}
+
 tasks.register('printGlassVersion') {
     doLast {
         println "upstreamVersionName=${upstreamVersionName} versionCode=${glassVersionCode} versionName=${glassVersionName}"

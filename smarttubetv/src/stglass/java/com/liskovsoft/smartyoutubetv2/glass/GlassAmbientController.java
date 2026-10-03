@@ -2,10 +2,7 @@ package com.liskovsoft.smartyoutubetv2.glass;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -34,6 +31,7 @@ public final class GlassAmbientController {
     private final ViewTreeObserver.OnGlobalFocusChangeListener mFocusListener = (oldFocus, newFocus) -> onFocus(newFocus);
     private int mScrimColor;
     private boolean mAttached;
+    private int mRetries;
 
     public GlassAmbientController(Activity activity) {
         mActivity = activity;
@@ -52,6 +50,8 @@ public final class GlassAmbientController {
 
         mActivity.getWindow().getDecorView().getViewTreeObserver().addOnGlobalFocusChangeListener(mFocusListener);
         mAttached = true;
+        // Coming back to this screen, upstream resets the background in onStart and focus does not move.
+        onFocus(mActivity.getCurrentFocus());
     }
 
     public void detach() {
@@ -68,6 +68,7 @@ public final class GlassAmbientController {
         if (card == null) {
             return;
         }
+        mRetries = 0;
         mDebouncer.request(card);
         mHandler.removeCallbacks(mCheck);
         mHandler.postDelayed(mCheck, GlassAmbient.DEBOUNCE_MS);
@@ -91,20 +92,21 @@ public final class GlassAmbientController {
             return;
         }
 
-        try {
-            Drawable thumbnail = ((ImageCardView) pending).getMainImageView().getDrawable();
-            if (thumbnail == null || !GlassAmbient.isUsableSize(thumbnail.getIntrinsicWidth(), thumbnail.getIntrinsicHeight())) {
-                return; // not loaded yet: keep the current background
+        ImageCardView card = (ImageCardView) pending;
+        Bitmap sample = GlassThumbnailSampler.sample(card.getMainImageView().getDrawable());
+        if (sample == null) {
+            // Thumbnail not loaded yet: try again a few times, then keep the current background.
+            if (mRetries < GlassAmbient.MAX_RETRIES) {
+                mRetries++;
+                mDebouncer.request(card);
+                mHandler.postDelayed(mCheck, GlassAmbient.DEBOUNCE_MS);
             }
+            return;
+        }
 
+        try {
             int width = GlassAmbient.SAMPLE_WIDTH;
             int height = GlassAmbient.SAMPLE_HEIGHT;
-            Bitmap sample = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            Rect bounds = thumbnail.copyBounds();
-            thumbnail.setBounds(0, 0, width, height);
-            thumbnail.draw(new Canvas(sample));
-            thumbnail.setBounds(bounds);
-
             int[] pixels = new int[width * height];
             sample.getPixels(pixels, 0, width, 0, 0, width, height);
             sample.recycle();
