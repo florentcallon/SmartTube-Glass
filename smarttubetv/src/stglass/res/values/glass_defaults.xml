@@ -29,6 +29,9 @@
         <item name="glassPlayerBarInset">0dp</item>
         <item name="glassPlayerBarPadding">0dp</item>
         <item name="glassPlayerCapsule">@null</item>
+        <item name="glassPlayerCapsulePaddingH">0dp</item>
+        <item name="glassPlayerCapsulePaddingV">0dp</item>
+        <item name="glassQualityInfoMaxWidth">2000dp</item> <!-- no effective limit -->
         <item name="glassControlsAlignStart">true</item>
         <item name="glassControlsCenter">false</item>
         <item name="glassControlButtonPrimary">@drawable/lb_control_button_primary</item>

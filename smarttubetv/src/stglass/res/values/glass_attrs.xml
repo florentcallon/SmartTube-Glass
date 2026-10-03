@@ -31,6 +31,9 @@
     <attr name="glassPlayerBarInset" format="dimension" />
     <attr name="glassPlayerBarPadding" format="dimension" />
     <attr name="glassPlayerCapsule" format="reference" />
+    <attr name="glassPlayerCapsulePaddingH" format="dimension" />
+    <attr name="glassPlayerCapsulePaddingV" format="dimension" />
+    <attr name="glassQualityInfoMaxWidth" format="dimension" />
     <attr name="glassControlsAlignStart" format="boolean" />
     <attr name="glassControlsCenter" format="boolean" />
     <attr name="glassControlButtonPrimary" format="reference" />

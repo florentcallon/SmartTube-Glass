@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- SmartTube Glass override of smarttubetv/src/main/res/layout/lb_playback_transport_controls_row.xml:
-     glass title capsule (controls_card) and floating glass controls bar (transport_row), primary controls
-     centred; all through theme attributes (GlassDefaults = upstream look). Ids and classes unchanged. -->
+     floating glass controls bar (transport_row), primary controls centred, quality info width capped so it
+     never runs under them (the title capsule is on lb_details_description.xml); all through theme attributes (GlassDefaults = upstream look). Ids and classes unchanged. -->
 <!-- MOD: intention to replace class name with custom one -->
 
 <!-- Note: clipChildren/clipToPadding false are needed to apply shadows to child
@@ -27,12 +27,7 @@
             android:clipToPadding="false"
             android:paddingStart="?attr/browsePaddingStart"
             android:paddingEnd="?attr/browsePaddingEnd"
-            android:paddingTop="?attr/glassPlayerBarPadding"
-            android:paddingBottom="?attr/glassPlayerBarPadding"
-            android:layout_marginStart="?attr/glassPlayerBarInset"
-            android:layout_marginEnd="?attr/glassPlayerBarInset"
             android:layout_marginBottom="@dimen/lb_playback_transport_control_info_margin_bottom"
-            android:background="?attr/glassPlayerCapsule"
             android:orientation="horizontal" >
 
             <ImageView
@@ -136,6 +131,7 @@
                     android:id="@+id/quality_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="?attr/glassQualityInfoMaxWidth"
                     android:layout_alignParentEnd="true"
                     style="?attr/playbackControlsTimeStyle" />
                 <com.liskovsoft.smartyoutubetv2.tv.ui.widgets.time.DateTimeView

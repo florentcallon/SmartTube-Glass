@@ -51,7 +51,9 @@ public class GlassPlayerTest {
         assertEquals(16, barParams.leftMargin);
         assertEquals(16, barParams.rightMargin);
         assertEquals(16, barParams.bottomMargin);
-        assertNotNull("title capsule background", row.findViewById(R.id.controls_card).getBackground());
+        // the capsule is on the description view (hidden in compact/seek mode), not on its container
+        assertNull("controls_card stays bare", row.findViewById(R.id.controls_card).getBackground());
+        assertEquals(150, ((android.widget.TextView) row.findViewById(R.id.quality_info)).getMaxWidth());
         View primaryControls = row.findViewById(R.id.controls_dock);
         assertEquals(RelativeLayout.TRUE, rule(primaryControls, RelativeLayout.CENTER_HORIZONTAL));
         assertEquals(0, rule(primaryControls, RelativeLayout.ALIGN_PARENT_LEFT));
@@ -110,5 +112,36 @@ public class GlassPlayerTest {
         assertEquals(androidx.core.content.ContextCompat.getDrawable(context, R.drawable.lb_control_button_secondary).getClass(),
                 buttonDrawable(R.style.App_Theme_DarkGrey_Player, R.layout.lb_control_button_secondary).getClass());
         assertTrue(!(buttonDrawable(R.style.App_Theme_DarkGrey_Player, R.layout.lb_control_button_primary) instanceof android.graphics.drawable.StateListDrawable));
+    }
+
+    private static View description(int theme) {
+        return LayoutInflater.from(playerContext(theme)).inflate(R.layout.lb_details_description, null);
+    }
+
+    /** SmartTube hides the description view while seeking: the capsule must go with it. */
+    @Test
+    public void titleCapsuleHidesWithTheDescription() {
+        View description = description(R.style.App_Theme_Glass_Noir_Player);
+        assertNotNull("capsule on the description view", description.getBackground());
+
+        description.setVisibility(View.GONE); // PlaybackTransportRowPresenter compact (seek) mode
+        assertTrue(!description.isShown());
+    }
+
+    @Test
+    public void classicDescriptionHasNoCapsule() {
+        assertNull(description(R.style.App_Theme_DarkGrey_Player).getBackground());
+        // Browse themes never show the player capsule
+        assertNull(description(R.style.App_Theme_Glass_Noir_Browse).getBackground());
+    }
+
+    @Test
+    public void focusedButtonDiscIsVisibleWithAccentRing() {
+        android.graphics.drawable.Drawable drawable = buttonDrawable(R.style.App_Theme_Glass_Rose_Player, R.layout.lb_control_button_secondary);
+        drawable.setState(new int[]{android.R.attr.state_focused});
+        android.graphics.drawable.GradientDrawable disc = (android.graphics.drawable.GradientDrawable) drawable.getCurrent();
+        assertTrue("fill at least 35% white", (disc.getColor().getDefaultColor() >>> 24) >= 0x59);
+        drawable.setState(new int[]{android.R.attr.state_pressed, android.R.attr.state_focused});
+        assertTrue("pressed state differs", drawable.getCurrent() != disc);
     }
 }
