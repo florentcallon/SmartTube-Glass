@@ -25,6 +25,10 @@ Fichiers de SmartTube modifiés (à garder minimes) :
   classe. Elle insère Glass Noir et Glass Rose en positions 1 et 2 de la liste des thèmes, seulement si leurs
   styles existent (donc jamais dans les flavors upstream).
 
+- `leanback-1.0.0/.../app/BrowseSupportFragment.java` et `HeadersSupportFragment.java` : réglage optionnel
+  « colonne d'icônes » quand le menu est replié, actif seulement si la dimension `lb_browse_headers_rail_width`
+  existe (définie dans `stglass` uniquement).
+
 Attention : une commande Gradle qui mentionne `Ststable` ou `Stbeta` active Firebase pour toutes les variantes
 de l'invocation. Compiler `stglass` dans une commande séparée.
 

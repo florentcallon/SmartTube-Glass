@@ -43,8 +43,11 @@ public final class GlassAmbientController {
         }
 
         TypedValue value = new TypedValue();
-        if (!mActivity.getTheme().resolveAttribute(R.attr.glassScrim, value, true)) {
+        if (!mActivity.getTheme().resolveAttribute(R.attr.glassAmbient, value, true) || value.data == 0) {
             return; // classic theme: keep the upstream background
+        }
+        if (!mActivity.getTheme().resolveAttribute(R.attr.glassScrim, value, true)) {
+            return;
         }
         mScrimColor = value.data;
 

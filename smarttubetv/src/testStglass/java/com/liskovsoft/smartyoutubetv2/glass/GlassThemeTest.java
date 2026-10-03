@@ -14,6 +14,8 @@ import org.robolectric.annotation.Config;
 import org.robolectric.annotation.ConscryptMode;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
@@ -25,6 +27,50 @@ public class GlassThemeTest {
         TypedValue value = new TypedValue();
         assertTrue("attribute missing from theme", context.getTheme().resolveAttribute(attr, value, true));
         return value.resourceId != 0 ? ContextCompat.getColor(context, value.resourceId) : value.data;
+    }
+
+    private static Context glassContext(int themeResId) {
+        Context context = new ContextThemeWrapper(RuntimeEnvironment.getApplication(), themeResId);
+        GlassTheme.applyDefaults(context.getTheme());
+        return context;
+    }
+
+    private static boolean themeBoolean(Context context, int attr) {
+        TypedValue value = new TypedValue();
+        assertTrue("attribute missing from theme", context.getTheme().resolveAttribute(attr, value, true));
+        return value.data != 0;
+    }
+
+    private static int resolvedColor(Context context, int attr) {
+        TypedValue value = new TypedValue();
+        assertTrue("attribute missing from theme", context.getTheme().resolveAttribute(attr, value, true));
+        return value.resourceId != 0 ? ContextCompat.getColor(context, value.resourceId) : value.data;
+    }
+
+    @Test
+    public void headersDrawablesInflateInEveryScheme() {
+        int[] themes = {R.style.App_Theme_Glass_Noir_Browse, R.style.App_Theme_Glass_Rose_Browse, R.style.App_Theme_DarkGrey_Browse};
+        for (int theme : themes) {
+            Context context = glassContext(theme);
+            assertNotNull(ContextCompat.getDrawable(context, R.drawable.glass_headers_panel));
+            assertNotNull(ContextCompat.getDrawable(context, R.drawable.glass_header_pill));
+        }
+    }
+
+    @Test
+    public void defaultsDoNotOverrideGlassThemes() {
+        Context context = glassContext(R.style.App_Theme_Glass_Rose_Browse);
+
+        assertEquals(0xFFFF5A5F, resolvedColor(context, R.attr.glassAccent));
+        assertTrue(themeBoolean(context, R.attr.glassAmbient));
+    }
+
+    @Test
+    public void classicSchemeGetsNeutralDefaults() {
+        Context context = glassContext(R.style.App_Theme_DarkGrey_Browse);
+
+        assertEquals(0xFFFF0033, resolvedColor(context, R.attr.glassAccent));
+        assertFalse(themeBoolean(context, R.attr.glassAmbient));
     }
 
     /**

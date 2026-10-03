@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SmartTube Glass override of smarttubetv/src/main/res/layout/icon_header_item.xml: 44dp pill entry.
+     Geometry (spec §6.1): pill starts at 24dp (panel 16 + 8), icon at 36-60dp, label at 80dp, which is
+     exactly where the collapsed side menu ends, so only the icon shows in the rail. -->
+<androidx.leanback.widget.NonOverlappingLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:gravity="center_vertical"
+    android:background="@drawable/glass_header_pill"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/header_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:contentDescription="@string/header_icon" />
+
+    <com.liskovsoft.smartyoutubetv2.tv.ui.widgets.marqueetextviewcompat.HeaderMarqueeTextViewCompat
+        android:id="@+id/header_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+
+        android:singleLine="true"
+        android:maxWidth="150sp"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:ellipsize="marquee"
+        android:scrollHorizontally="true"
+
+        style="@style/TextAppearance.Leanback.Header"/>
+</androidx.leanback.widget.NonOverlappingLinearLayout>

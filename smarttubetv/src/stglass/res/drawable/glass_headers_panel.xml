@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Floating glass side panel (spec §6.1): 16dp from the screen edges, 8dp end gap = header root paddingEnd. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="16dp" android:top="16dp" android:bottom="16dp" android:right="8dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="24dp" />
+            <solid android:color="?attr/glassTint" />
+            <stroke android:width="1dp" android:color="?attr/glassStroke" />
+        </shape>
+    </item>
+    <!-- Top highlight -->
+    <item android:left="17dp" android:top="17dp" android:bottom="17dp" android:right="9dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="23dp" />
+            <gradient
+                android:angle="270"
+                android:startColor="#1AFFFFFF"
+                android:centerColor="#00FFFFFF"
+                android:endColor="#00FFFFFF"
+                android:centerY="0.33" />
+        </shape>
+    </item>
+</layer-list>

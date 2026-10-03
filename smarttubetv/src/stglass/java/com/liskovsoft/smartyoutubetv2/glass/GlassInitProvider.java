@@ -55,6 +55,9 @@ public final class GlassInitProvider extends ContentProvider {
 
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            // Runs inside super.onCreate(), before MotherActivity.initTheme() applies the colour scheme with
+            // force: Glass schemes then override these defaults, classic ones keep them.
+            GlassTheme.applyDefaults(activity.getTheme());
         }
 
         @Override

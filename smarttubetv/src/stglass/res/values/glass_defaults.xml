@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutral values for the glass attributes, applied without force to every activity theme by
+         GlassInitProvider: classic schemes get them, Glass schemes keep their own. -->
+    <style name="GlassDefaults">
+        <item name="glassAmbient">false</item>
+        <item name="glassScrim">#B3000000</item>
+        <item name="glassTint">#14FFFFFF</item>
+        <item name="glassTintFocus">#29FFFFFF</item>
+        <item name="glassStroke">#1FFFFFFF</item>
+        <item name="glassAccent">#FF0033</item>
+        <item name="glassTextSecondary">#99FFFFFF</item>
+        <item name="glassPlayerTint">#8C0A0A0C</item>
+    </style>
+</resources>

@@ -8,7 +8,9 @@
     <style name="App.Theme.Glass.Noir.Browse" parent="App.Theme.DarkGrey.Browse">
         <item name="android:windowBackground">@color/glass_noir_shelf</item>
         <item name="shelfBackground">@drawable/glass_noir_shelf</item>
-        <item name="brandColor">@color/glass_noir_header</item>
+        <!-- The side panel is drawn by lb_headers_fragment.xml -->
+        <item name="brandColor">@android:color/transparent</item>
+        <item name="glassAmbient">true</item>
         <item name="brandAccentColor">@color/glass_noir_accent</item>
         <item name="cardDefaultBackground">@color/glass_noir_card</item>
         <item name="cardSelectedBackground">@color/glass_card_selected</item>
@@ -41,7 +43,9 @@
     <style name="App.Theme.Glass.Rose.Browse" parent="App.Theme.DarkGrey.Browse">
         <item name="android:windowBackground">@color/glass_rose_shelf</item>
         <item name="shelfBackground">@drawable/glass_rose_shelf</item>
-        <item name="brandColor">@color/glass_rose_header</item>
+        <!-- The side panel is drawn by lb_headers_fragment.xml -->
+        <item name="brandColor">@android:color/transparent</item>
+        <item name="glassAmbient">true</item>
         <item name="brandAccentColor">@color/glass_rose_accent</item>
         <item name="cardDefaultBackground">@color/glass_rose_card</item>
         <item name="cardSelectedBackground">@color/glass_card_selected</item>

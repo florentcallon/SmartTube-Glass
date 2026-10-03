@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- SmartTube Glass theme attributes (spec §5.3). Set by App.Theme.Glass.* only. -->
+    <!-- SmartTube Glass theme attributes (spec §5.3). Set by App.Theme.Glass.*, defaults in GlassDefaults. -->
+    <!-- true only in Glass Browse themes: enables the ambient background -->
+    <attr name="glassAmbient" format="boolean" />
     <attr name="glassScrim" format="color" />
     <attr name="glassTint" format="color" />
     <attr name="glassTintFocus" format="color" />
