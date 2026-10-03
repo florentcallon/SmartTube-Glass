@@ -108,9 +108,7 @@ jobs:
           cp "$OUT/SmartTube_glass_${NAME}_armeabi-v7a.apk" dist/smarttube_glass_armeabi-v7a.apk
 
           UPSTREAM=$(git describe --tags --match '[0-9]*s' --abbrev=0 HEAD 2>/dev/null || echo "(tag upstream introuvable)")
-          PREV=$(git describe --tags --match 'v*-glass.*' --abbrev=0 HEAD 2>/dev/null || true)
-          RANGE=${PREV:+$PREV..}HEAD
-          mapfile -t LINES < <(git log --first-parent --no-merges --format=%s "$RANGE" | head -n 10)
+          mapfile -t LINES < <(bash glass/scripts/changelog.sh)
           bash glass/scripts/make-update-json.sh "$NAME" "$CODE" "$REPO" "Upstream $UPSTREAM" "${LINES[@]}" > dist/smarttube_glass.json
 
           {

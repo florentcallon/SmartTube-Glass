@@ -110,7 +110,7 @@ assert_eq parse_version_missing "1:" "$code:$out"
 repo=$(mktemp -d)
 (
   cd "$repo" || exit 1
-  git init -q . && git config user.email t@t && git config user.name t && git config commit.gpgsign false
+  git init -q . && git config user.email t@t && git config user.name t && git config commit.gpgsign false && git config core.autocrlf false
   echo a > app.java && git add -A && git commit -qm code
   bash "$SCRIPTS/should-release.sh" > /dev/null; echo "should_release_first_build|0|$?"
   git tag v32.56-glass.0
@@ -120,7 +120,26 @@ repo=$(mktemp -d)
   bash "$SCRIPTS/should-release.sh" > /dev/null; echo "should_release_docs_only|1|$?"
   echo b >> app.java && git add -A && git commit -qm code2
   bash "$SCRIPTS/should-release.sh" > /dev/null; echo "should_release_code_changed|0|$?"
-) > "$repo.results" 2>&1
+) 2>/dev/null | grep "|" > "$repo.results"
+while IFS='|' read -r name expected actual; do
+  assert_eq "$name" "$expected" "$actual"
+done < "$repo.results"
+rm -rf "$repo" "$repo.results"
+
+# --- changelog.sh ---
+repo=$(mktemp -d)
+(
+  cd "$repo" || exit 1
+  git init -q . && git config user.email t@t && git config user.name t && git config commit.gpgsign false && git config core.autocrlf false
+  echo a > app.java && git add -A && git commit -qm "first code"
+  git tag v32.56-glass.0
+  mkdir -p docs glass/mockup && echo d > docs/plan.md && git add -A && git commit -qm "docs only"
+  echo b >> app.java && git add -A && git commit -qm "feat: code change"
+  echo m > glass/mockup/index.html && git add -A && git commit -qm "mockup only"
+  echo "changelog_skips_doc_commits|feat: code change|$(bash "$SCRIPTS/changelog.sh" | paste -sd ';' -)"
+  git tag -d v32.56-glass.0 > /dev/null
+  echo "changelog_without_previous_release|feat: code change;first code|$(bash "$SCRIPTS/changelog.sh" | paste -sd ';' -)"
+) 2>/dev/null | grep "|" > "$repo.results"
 while IFS='|' read -r name expected actual; do
   assert_eq "$name" "$expected" "$actual"
 done < "$repo.results"
