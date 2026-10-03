@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Update manifest published by .github/workflows/build-release.yml -->
+    <string-array name="update_urls">
+        <item>https://github.com/florentcallon/SmartTube-Glass/releases/download/latest/smarttube_glass.json</item>
+    </string-array>
+</resources>

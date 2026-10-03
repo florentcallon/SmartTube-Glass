@@ -1,0 +1,34 @@
+// SmartTube Glass: the stglass flavor. Applied by the last line of smarttubetv/build.gradle,
+// so that the upstream build script stays untouched apart from that line.
+//
+// versionCode = upstream versionCode * 100 + glassRevision, versionName = <upstream>-glass.<rev>.
+// CI passes -PglassRevision (see glass/scripts/next-revision.sh); local builds use 0.
+
+def glassRevision = (project.findProperty('glassRevision') ?: '0').toString().toInteger()
+if (glassRevision < 0 || glassRevision > 99) {
+    throw new GradleException("glassRevision must be in [0, 99], got ${glassRevision}")
+}
+def upstreamVersionCode = android.defaultConfig.versionCode
+def upstreamVersionName = android.defaultConfig.versionName
+def glassVersionCode = upstreamVersionCode * 100 + glassRevision
+def glassVersionName = "${upstreamVersionName}-glass.${glassRevision}"
+
+android {
+    productFlavors {
+        stglass {
+            dimension "default"
+            applicationId "org.smarttube.glass"
+            targetSdkVersion project.properties.compileSdkVersion
+            versionCode glassVersionCode
+            versionNameSuffix "-glass.${glassRevision}"
+            // Library modules only know stbeta/ststable/stfdroid: build them as ststable.
+            matchingFallbacks = ['ststable']
+        }
+    }
+}
+
+tasks.register('printGlassVersion') {
+    doLast {
+        println "upstreamVersionName=${upstreamVersionName} versionCode=${glassVersionCode} versionName=${glassVersionName}"
+    }
+}

@@ -253,3 +253,5 @@ dependencies {
     // ByeByeDPI fix
     implementation 'org.conscrypt:conscrypt-android:' + conscryptVersion
 }
+
+apply from: rootProject.file('glass/glass.gradle')
