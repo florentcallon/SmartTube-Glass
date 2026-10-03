@@ -229,6 +229,11 @@ upstream les référence) ; chaque surcharge est inscrite dans `glass/overrides.
 2. **Système glass** : thèmes, attributs, `GlassPanelView`, `GlassBlurPolicy`, fond d'ambiance, police, `GlassInitProvider`.
 3. Navigation latérale. 4. Grille. 5. Lecteur. 6. Dialogues & réglages.
 
+*Précisions à la planification du lot 2 :* `GlassPanelView`, `GlassBlurPolicy` et la police Figtree passent au
+lot 3 (premier usage). Glass Noir est le thème par défaut par sa position (index 1, défaut upstream) : pas de
+logique de premier lancement. Le lot 2 garde un fond quasi blanc sur la carte sélectionnée (couleur de texte
+imposée par le code upstream) jusqu'au lot 4.
+
 Maquette de référence : `glass/mockup/index.html` (publiée sur https://claude.ai/artifact/2az23EUV9DtE5WFvSBJYho).
 
 Chaque lot se termine par une release installée et vérifiée sur la box.

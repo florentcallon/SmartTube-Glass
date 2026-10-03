@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- SmartTube Glass color schemes, registered by MainUIData.initGlassColorSchemes().
+         They extend the Dark Grey schemes and only change colors.
+         windowBackground stays opaque: BackgroundManager does not work with a translucent window. -->
+
+    <!-- Glass Noir -->
+    <style name="App.Theme.Glass.Noir.Browse" parent="App.Theme.DarkGrey.Browse">
+        <item name="android:windowBackground">@color/glass_noir_shelf</item>
+        <item name="shelfBackground">@drawable/glass_noir_shelf</item>
+        <item name="brandColor">@color/glass_noir_header</item>
+        <item name="brandAccentColor">@color/glass_noir_accent</item>
+        <item name="cardDefaultBackground">@color/glass_noir_tint</item>
+        <item name="cardSelectedBackground">@color/glass_card_selected</item>
+        <item name="android:colorAccent" tools:targetApi="21">@color/glass_noir_accent</item>
+        <item name="glassScrim">@color/glass_noir_scrim</item>
+        <item name="glassTint">@color/glass_noir_tint</item>
+        <item name="glassTintFocus">@color/glass_noir_tint_focus</item>
+        <item name="glassStroke">@color/glass_noir_stroke</item>
+        <item name="glassAccent">@color/glass_noir_accent</item>
+        <item name="glassTextSecondary">@color/glass_noir_text_secondary</item>
+        <item name="glassPlayerTint">@color/glass_noir_player_tint</item>
+    </style>
+    <style name="App.Theme.Glass.Noir.Player" parent="App.Theme.DarkGrey.Player">
+        <item name="playbackProgressPrimaryColor">@color/glass_noir_accent</item>
+        <item name="playbackControlsIconHighlightColor">@color/glass_noir_accent</item>
+        <item name="android:colorAccent" tools:targetApi="21">@color/glass_noir_accent</item>
+        <item name="glassScrim">@color/glass_noir_scrim</item>
+        <item name="glassTint">@color/glass_noir_tint</item>
+        <item name="glassTintFocus">@color/glass_noir_tint_focus</item>
+        <item name="glassStroke">@color/glass_noir_stroke</item>
+        <item name="glassAccent">@color/glass_noir_accent</item>
+        <item name="glassTextSecondary">@color/glass_noir_text_secondary</item>
+        <item name="glassPlayerTint">@color/glass_noir_player_tint</item>
+    </style>
+    <style name="App.Theme.Glass.Noir.Preferences" parent="App.Theme.DarkGrey.Preferences">
+        <item name="android:colorAccent" tools:targetApi="21">@color/glass_noir_accent</item>
+    </style>
+
+    <!-- Glass Rose -->
+    <style name="App.Theme.Glass.Rose.Browse" parent="App.Theme.DarkGrey.Browse">
+        <item name="android:windowBackground">@color/glass_rose_shelf</item>
+        <item name="shelfBackground">@drawable/glass_rose_shelf</item>
+        <item name="brandColor">@color/glass_rose_header</item>
+        <item name="brandAccentColor">@color/glass_rose_accent</item>
+        <item name="cardDefaultBackground">@color/glass_rose_tint</item>
+        <item name="cardSelectedBackground">@color/glass_card_selected</item>
+        <item name="android:colorAccent" tools:targetApi="21">@color/glass_rose_accent</item>
+        <item name="glassScrim">@color/glass_rose_scrim</item>
+        <item name="glassTint">@color/glass_rose_tint</item>
+        <item name="glassTintFocus">@color/glass_rose_tint_focus</item>
+        <item name="glassStroke">@color/glass_rose_stroke</item>
+        <item name="glassAccent">@color/glass_rose_accent</item>
+        <item name="glassTextSecondary">@color/glass_rose_text_secondary</item>
+        <item name="glassPlayerTint">@color/glass_rose_player_tint</item>
+    </style>
+    <style name="App.Theme.Glass.Rose.Player" parent="App.Theme.DarkGrey.Player">
+        <item name="playbackProgressPrimaryColor">@color/glass_rose_accent</item>
+        <item name="playbackControlsIconHighlightColor">@color/glass_rose_accent</item>
+        <item name="android:colorAccent" tools:targetApi="21">@color/glass_rose_accent</item>
+        <item name="glassScrim">@color/glass_rose_scrim</item>
+        <item name="glassTint">@color/glass_rose_tint</item>
+        <item name="glassTintFocus">@color/glass_rose_tint_focus</item>
+        <item name="glassStroke">@color/glass_rose_stroke</item>
+        <item name="glassAccent">@color/glass_rose_accent</item>
+        <item name="glassTextSecondary">@color/glass_rose_text_secondary</item>
+        <item name="glassPlayerTint">@color/glass_rose_player_tint</item>
+    </style>
+    <style name="App.Theme.Glass.Rose.Preferences" parent="App.Theme.DarkGrey.Preferences">
+        <item name="android:colorAccent" tools:targetApi="21">@color/glass_rose_accent</item>
+    </style>
+</resources>

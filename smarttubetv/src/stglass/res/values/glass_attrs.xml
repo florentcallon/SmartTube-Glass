@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SmartTube Glass theme attributes (spec §5.3). Set by App.Theme.Glass.* only. -->
+    <attr name="glassScrim" format="color" />
+    <attr name="glassTint" format="color" />
+    <attr name="glassTintFocus" format="color" />
+    <attr name="glassStroke" format="color" />
+    <attr name="glassAccent" format="color" />
+    <attr name="glassTextSecondary" format="color" />
+    <attr name="glassPlayerTint" format="color" />
+</resources>

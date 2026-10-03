@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Default Glass Noir background until a card takes focus. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:type="radial"
+        android:centerX="0.3"
+        android:centerY="0.2"
+        android:gradientRadius="90%p"
+        android:startColor="@color/glass_noir_accent_soft"
+        android:endColor="@color/glass_noir_shelf" />
+</shape>

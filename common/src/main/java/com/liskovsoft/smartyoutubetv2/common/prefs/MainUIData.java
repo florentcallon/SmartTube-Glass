@@ -124,6 +124,7 @@ public class MainUIData extends DataChangeBase implements ProfileChangeListener 
         mPrefs = AppPrefs.instance(context);
         mPrefs.addListener(this);
         initColorSchemes();
+        initGlassColorSchemes();
         restoreState();
     }
 
@@ -540,5 +541,26 @@ public class MainUIData extends DataChangeBase implements ProfileChangeListener 
     public void onProfileChanged() {
         restoreState();
         onDataChange();
+    }
+
+    /**
+     * SmartTube Glass fork: its color schemes exist only in the stglass flavor. They are inserted right after
+     * the first scheme (index 1 is the default), so schemes appended upstream later never shift them.
+     */
+    private void initGlassColorSchemes() {
+        String[][] schemes = {
+                {"color_scheme_glass_noir", "App.Theme.Glass.Noir"},
+                {"color_scheme_glass_rose", "App.Theme.Glass.Rose"}
+        };
+
+        for (int i = 0; i < schemes.length; i++) {
+            int nameResId = Helpers.getResourceId(schemes[i][0], "string", mContext);
+            String theme = schemes[i][1];
+            if (nameResId <= 0 || Helpers.getResourceId(theme + ".Browse", "style", mContext) <= 0) {
+                return;
+            }
+            mColorSchemes.add(1 + i, new ColorScheme(
+                    nameResId, theme + ".Player", theme + ".Browse", theme + ".Preferences", mContext));
+        }
     }
 }

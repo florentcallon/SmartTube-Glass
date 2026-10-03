@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Glass Noir (spec §5.3) -->
+    <color name="glass_noir_scrim">#B3000000</color>
+    <color name="glass_noir_tint">#14FFFFFF</color>
+    <color name="glass_noir_tint_focus">#29FFFFFF</color>
+    <color name="glass_noir_stroke">#1FFFFFFF</color>
+    <color name="glass_noir_accent">#FF0033</color>
+    <color name="glass_noir_accent_soft">#2EFF0033</color>
+    <color name="glass_noir_text_secondary">#99FFFFFF</color>
+    <color name="glass_noir_player_tint">#8C0A0A0C</color>
+    <color name="glass_noir_header">#B30E0E12</color>
+    <color name="glass_noir_shelf">#0B0B0E</color>
+
+    <!-- Glass Rose (spec §5.3) -->
+    <color name="glass_rose_scrim">#A62A0612</color>
+    <color name="glass_rose_tint">#1AFF5A7A</color>
+    <color name="glass_rose_tint_focus">#33FF5A7A</color>
+    <color name="glass_rose_stroke">#2EFFB3C1</color>
+    <color name="glass_rose_accent">#FF5A5F</color>
+    <color name="glass_rose_accent_soft">#2EFF5A5F</color>
+    <color name="glass_rose_text_secondary">#A6FFFFFF</color>
+    <color name="glass_rose_player_tint">#8C1A0710</color>
+    <color name="glass_rose_header">#B3240812</color>
+    <color name="glass_rose_shelf">#14060B</color>
+
+    <!-- Upstream fixes the selected card text to dark grey: keep a light frosted background until lot 4. -->
+    <color name="glass_card_selected">#EBFFFFFF</color>
+</resources>

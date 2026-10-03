@@ -21,6 +21,12 @@ Fichiers de SmartTube modifiés (à garder minimes) :
 
 - `smarttubetv/build.gradle` : une ligne en fin de fichier, `apply from: rootProject.file('glass/glass.gradle')`.
 - `.gitignore` : 4 lignes en fin de fichier pour ne jamais commiter la clé de signature.
+- `common/.../prefs/MainUIData.java` : appel `initGlassColorSchemes()` dans le constructeur + la méthode en fin de
+  classe. Elle insère Glass Noir et Glass Rose en positions 1 et 2 de la liste des thèmes, seulement si leurs
+  styles existent (donc jamais dans les flavors upstream).
+
+Attention : une commande Gradle qui mentionne `Ststable` ou `Stbeta` active Firebase pour toutes les variantes
+de l'invocation. Compiler `stglass` dans une commande séparée.
 
 Les sous-modules `SharedModules` et `MediaServiceCore` ne sont jamais modifiés.
 

@@ -4,4 +4,7 @@
     <string translatable="false" name="browse_title"><![CDATA[SmartTube Glass]]></string>
     <!-- Must match the provider authority (${applicationId}) and res/xml/searchable.xml -->
     <string translatable="false" name="search_authority">org.smarttube.glass</string>
+    <!-- Color scheme names, looked up by MainUIData.initGlassColorSchemes() -->
+    <string translatable="false" name="color_scheme_glass_noir">Glass Noir</string>
+    <string translatable="false" name="color_scheme_glass_rose">Glass Rose</string>
 </resources>
