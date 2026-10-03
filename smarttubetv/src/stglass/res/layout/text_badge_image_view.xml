@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- SmartTube Glass override of smarttubetv/src/main/res/layout/text_badge_image_view.xml (inflated by
-     ComplexImageView into itself), Glass schemes (theme attributes, square in classic ones): thumbnail clipped to 16dp corners with an accent outline when the card
-     is selected, badge clipped to 6dp corners, rounded progress inset from the thumbnail edges.
+     ComplexImageView into itself), Glass schemes (theme attributes, square in classic ones): thumbnail clipped to 16dp corners with a soft accent glow behind it when the
+     card is selected, badge clipped to 6dp corners, rounded progress inset from the thumbnail edges.
      All ids and view classes of the upstream layout are kept. -->
 <merge xmlns:tools="http://schemas.android.com/tools"
        xmlns:android="http://schemas.android.com/apk/res/android"
        xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!-- Focus glow, 14dp (GlassGlowView.GLOW_DP) larger than the thumbnail on each side -->
+    <com.liskovsoft.smartyoutubetv2.glass.GlassGlowView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/glass_thumbnail_frame"
+        android:layout_alignTop="@+id/glass_thumbnail_frame"
+        android:layout_alignRight="@+id/glass_thumbnail_frame"
+        android:layout_alignBottom="@+id/glass_thumbnail_frame"
+        android:layout_marginLeft="-14dp"
+        android:layout_marginTop="-14dp"
+        android:layout_marginRight="-14dp"
+        android:layout_marginBottom="-14dp"
+        tools:ignore="RtlHardcoded" />
+
     <com.liskovsoft.smartyoutubetv2.glass.GlassRoundedFrameLayout
+        android:id="@+id/glass_thumbnail_frame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:foreground="?attr/glassCardFocus"

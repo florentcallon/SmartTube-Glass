@@ -9,11 +9,16 @@
     <style name="Glass.GridView" parent="GridViewStyle">
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">8dp</item>
+        <item name="android:clipChildren">false</item> <!-- focus glow draws outside the card -->
     </style>
     <!-- Rows scroll horizontally: upstream end padding, so the last card is never cut -->
     <style name="Glass.RowView" parent="RowViewStyle">
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">56dp</item>
+        <item name="android:clipChildren">false</item> <!-- focus glow draws outside the card -->
+    </style>
+    <style name="Glass.ImageCardView" parent="Widget.Leanback.ImageCardViewStyle">
+        <item name="android:clipChildren">false</item> <!-- focus glow draws outside the thumbnail -->
     </style>
     <style name="Glass.RowHeaderDock" parent="Widget.Leanback.Row.HeaderDock">
         <item name="android:paddingStart">16dp</item>
@@ -62,7 +67,10 @@
         <item name="glassHeaderPill">@drawable/glass_header_pill</item>
         <item name="glassCardRadius">16dp</item>
         <item name="glassBadgeRadius">6dp</item>
-        <item name="glassCardFocus">@drawable/glass_card_focus</item>
+        <!-- focus = soft glow behind the thumbnail (GlassGlowView), no outline -->
+        <item name="glassCardFocus">@null</item>
+        <item name="glassCardGlow">@color/glass_noir_glow</item>
+        <item name="imageCardViewStyle">@style/Glass.ImageCardView</item>
         <item name="glassFocusOutline">@drawable/glass_focus_outline</item>
         <item name="glassAmbient">true</item>
         <item name="brandAccentColor">@color/glass_noir_accent</item>
@@ -120,7 +128,10 @@
         <item name="glassHeaderPill">@drawable/glass_header_pill</item>
         <item name="glassCardRadius">16dp</item>
         <item name="glassBadgeRadius">6dp</item>
-        <item name="glassCardFocus">@drawable/glass_card_focus</item>
+        <!-- focus = soft glow behind the thumbnail (GlassGlowView), no outline -->
+        <item name="glassCardFocus">@null</item>
+        <item name="glassCardGlow">@color/glass_rose_glow</item>
+        <item name="imageCardViewStyle">@style/Glass.ImageCardView</item>
         <item name="glassFocusOutline">@drawable/glass_focus_outline</item>
         <item name="glassAmbient">true</item>
         <item name="brandAccentColor">@color/glass_rose_accent</item>

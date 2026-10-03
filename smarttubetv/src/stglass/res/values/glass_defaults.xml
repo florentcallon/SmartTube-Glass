@@ -23,6 +23,7 @@
         <item name="glassCardRadius">0dp</item>
         <item name="glassBadgeRadius">0dp</item>
         <item name="glassCardFocus">@null</item>
+        <item name="glassCardGlow">#00000000</item>
         <item name="glassFocusOutline">@null</item>
     </style>
 </resources>

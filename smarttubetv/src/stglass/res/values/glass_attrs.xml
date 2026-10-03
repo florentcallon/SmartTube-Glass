@@ -23,6 +23,7 @@
     <attr name="glassCardRadius" format="dimension" />
     <attr name="glassBadgeRadius" format="dimension" />
     <attr name="glassCardFocus" format="reference" />
+    <attr name="glassCardGlow" format="color" /> <!-- GlassGlowView behind the focused thumbnail -->
     <attr name="glassFocusOutline" format="reference" />
 
     <declare-styleable name="GlassRoundedFrameLayout">

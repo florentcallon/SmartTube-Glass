@@ -131,8 +131,30 @@ public class GlassThemeTest {
             assertEquals(6f, themeDimensionDp(context, R.attr.glassBadgeRadius), 0f);
             assertEquals(R.drawable.glass_headers_panel, themeReference(context, R.attr.glassHeadersPanel));
             assertEquals(R.drawable.glass_header_pill, themeReference(context, R.attr.glassHeaderPill));
-            assertEquals(R.drawable.glass_card_focus, themeReference(context, R.attr.glassCardFocus));
+            assertEquals("the focus glow replaces the outline", 0, themeReference(context, R.attr.glassCardFocus));
             assertEquals(R.drawable.glass_focus_outline, themeReference(context, R.attr.glassFocusOutline));
+        }
+    }
+
+    private static boolean styleClipsChildren(Context context, int styleAttr) {
+        TypedValue style = new TypedValue();
+        assertTrue("style attribute missing", context.getTheme().resolveAttribute(styleAttr, style, true));
+        android.content.res.TypedArray a = context.obtainStyledAttributes(style.resourceId, new int[]{android.R.attr.clipChildren});
+        try {
+            return a.getBoolean(0, true);
+        } finally {
+            a.recycle();
+        }
+    }
+
+    /** The focus glow draws outside the thumbnail: cards, rows and grids must not clip their children. */
+    @Test
+    public void cardsRowsAndGridsLetTheGlowOut() {
+        for (int theme : new int[]{R.style.App_Theme_Glass_Noir_Browse, R.style.App_Theme_Glass_Rose_Browse}) {
+            Context context = glassContext(theme);
+            for (int attr : new int[]{R.attr.imageCardViewStyle, R.attr.rowHorizontalGridStyle, R.attr.itemsVerticalGridStyle}) {
+                assertFalse("clipChildren of style attr " + attr, styleClipsChildren(context, attr));
+            }
         }
     }
 
