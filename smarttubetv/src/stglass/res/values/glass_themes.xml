@@ -10,7 +10,7 @@
         <item name="shelfBackground">@drawable/glass_noir_shelf</item>
         <item name="brandColor">@color/glass_noir_header</item>
         <item name="brandAccentColor">@color/glass_noir_accent</item>
-        <item name="cardDefaultBackground">@color/glass_noir_tint</item>
+        <item name="cardDefaultBackground">@color/glass_noir_card</item>
         <item name="cardSelectedBackground">@color/glass_card_selected</item>
         <item name="android:colorAccent" tools:targetApi="21">@color/glass_noir_accent</item>
         <item name="glassScrim">@color/glass_noir_scrim</item>
@@ -43,7 +43,7 @@
         <item name="shelfBackground">@drawable/glass_rose_shelf</item>
         <item name="brandColor">@color/glass_rose_header</item>
         <item name="brandAccentColor">@color/glass_rose_accent</item>
-        <item name="cardDefaultBackground">@color/glass_rose_tint</item>
+        <item name="cardDefaultBackground">@color/glass_rose_card</item>
         <item name="cardSelectedBackground">@color/glass_card_selected</item>
         <item name="android:colorAccent" tools:targetApi="21">@color/glass_rose_accent</item>
         <item name="glassScrim">@color/glass_rose_scrim</item>
