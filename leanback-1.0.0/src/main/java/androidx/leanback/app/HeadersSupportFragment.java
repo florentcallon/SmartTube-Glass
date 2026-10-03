@@ -271,7 +271,7 @@ public class HeadersSupportFragment extends BaseRowSupportFragment {
     @Override
     public void onTransitionStart() {
         super.onTransitionStart();
-        if (!mHeadersEnabled) {
+        if (!mHeadersEnabled && !mChildrenVisibleWhenDisabled) { // icon rail: items already shown
             // When enabling headers fragment,  the RowHeaderView gets a focus but
             // isShown() is still false because its parent is INVISIBLE, accessibility
             // event is not sent.

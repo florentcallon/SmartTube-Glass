@@ -4,12 +4,34 @@
          They extend the Dark Grey schemes and only change colors.
          windowBackground stays opaque: BackgroundManager does not work with a translucent window. -->
 
+    <!-- Paddings used with the icon rail (see App.Theme.Glass.*.Browse) -->
+    <style name="Glass.GridView" parent="GridViewStyle">
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">16dp</item>
+    </style>
+    <style name="Glass.RowView" parent="RowViewStyle">
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">16dp</item>
+    </style>
+    <style name="Glass.RowHeaderDock" parent="Widget.Leanback.Row.HeaderDock">
+        <item name="android:paddingStart">8dp</item>
+    </style>
+    <style name="Glass.TitleView" parent="Widget.Leanback.TitleView">
+        <item name="android:paddingStart">96dp</item>
+    </style>
+
     <!-- Glass Noir -->
     <style name="App.Theme.Glass.Noir.Browse" parent="App.Theme.DarkGrey.Browse">
         <item name="android:windowBackground">@color/glass_noir_shelf</item>
         <item name="shelfBackground">@drawable/glass_noir_shelf</item>
         <!-- The side panel is drawn by lb_headers_fragment.xml -->
         <item name="brandColor">@android:color/transparent</item>
+        <!-- Room for the 88dp icon rail: grids keep upstream's usable width (GridFragmentHelper sizes
+             columns from the display width), the title starts after the rail. -->
+        <item name="itemsVerticalGridStyle">@style/Glass.GridView</item>
+        <item name="rowHorizontalGridStyle">@style/Glass.RowView</item>
+        <item name="rowHeaderDockStyle">@style/Glass.RowHeaderDock</item>
+        <item name="browseTitleViewStyle">@style/Glass.TitleView</item>
         <item name="glassAmbient">true</item>
         <item name="brandAccentColor">@color/glass_noir_accent</item>
         <item name="cardDefaultBackground">@color/glass_noir_card</item>
@@ -45,6 +67,12 @@
         <item name="shelfBackground">@drawable/glass_rose_shelf</item>
         <!-- The side panel is drawn by lb_headers_fragment.xml -->
         <item name="brandColor">@android:color/transparent</item>
+        <!-- Room for the 88dp icon rail: grids keep upstream's usable width (GridFragmentHelper sizes
+             columns from the display width), the title starts after the rail. -->
+        <item name="itemsVerticalGridStyle">@style/Glass.GridView</item>
+        <item name="rowHorizontalGridStyle">@style/Glass.RowView</item>
+        <item name="rowHeaderDockStyle">@style/Glass.RowHeaderDock</item>
+        <item name="browseTitleViewStyle">@style/Glass.TitleView</item>
         <item name="glassAmbient">true</item>
         <item name="brandAccentColor">@color/glass_rose_accent</item>
         <item name="cardDefaultBackground">@color/glass_rose_card</item>

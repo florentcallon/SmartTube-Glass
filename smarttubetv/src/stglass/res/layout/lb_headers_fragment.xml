@@ -31,7 +31,7 @@
         android:id="@+id/browse_headers"
         android:layout_width="@dimen/lb_browse_headers_width"
         android:layout_height="match_parent"
-        android:paddingStart="16dp"
+        android:paddingStart="24dp"
         style="?attr/headersVerticalGridStyle"/>
     <!-- Kept for HeadersSupportFragment (it paints the brand colour fade on it); unused by the panel -->
     <View

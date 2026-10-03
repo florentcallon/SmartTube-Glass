@@ -9,8 +9,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import com.liskovsoft.smartyoutubetv2.tv.ui.common.LeanbackActivity;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 /**
  * Entry point of the SmartTube Glass code, declared in the stglass manifest so that no upstream class
@@ -24,33 +24,46 @@ public final class GlassInitProvider extends ContentProvider {
         return true;
     }
 
+    private static final class Decorations {
+        final GlassAmbientController ambient;
+        final GlassHeaders headers;
+
+        Decorations(Activity activity) {
+            ambient = new GlassAmbientController(activity);
+            headers = new GlassHeaders(activity);
+        }
+    }
+
     private static final class Callbacks implements Application.ActivityLifecycleCallbacks {
-        private final Map<Activity, GlassAmbientController> mControllers = new WeakHashMap<>();
+        // Entries are removed in onActivityDestroyed (values reference their activity).
+        private final Map<Activity, Decorations> mDecorations = new HashMap<>();
 
         @Override
         public void onActivityResumed(Activity activity) {
             if (!(activity instanceof LeanbackActivity)) {
                 return;
             }
-            GlassAmbientController controller = mControllers.get(activity);
-            if (controller == null) {
-                controller = new GlassAmbientController(activity);
-                mControllers.put(activity, controller);
+            Decorations decorations = mDecorations.get(activity);
+            if (decorations == null) {
+                decorations = new Decorations(activity);
+                mDecorations.put(activity, decorations);
             }
-            controller.attach();
+            decorations.ambient.attach();
+            decorations.headers.attach();
         }
 
         @Override
         public void onActivityPaused(Activity activity) {
-            GlassAmbientController controller = mControllers.get(activity);
-            if (controller != null) {
-                controller.detach();
+            Decorations decorations = mDecorations.get(activity);
+            if (decorations != null) {
+                decorations.ambient.detach();
+                decorations.headers.detach();
             }
         }
 
         @Override
         public void onActivityDestroyed(Activity activity) {
-            mControllers.remove(activity);
+            mDecorations.remove(activity);
         }
 
         @Override

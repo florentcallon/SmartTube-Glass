@@ -73,6 +73,35 @@ public class GlassThemeTest {
         assertFalse(themeBoolean(context, R.attr.glassAmbient));
     }
 
+    private static int stylePaddingDp(Context context, int styleAttr, int paddingAttr) {
+        TypedValue style = new TypedValue();
+        assertTrue("style attribute missing", context.getTheme().resolveAttribute(styleAttr, style, true));
+        android.content.res.TypedArray a = context.obtainStyledAttributes(style.resourceId, new int[]{paddingAttr});
+        try {
+            return Math.round(a.getDimension(0, -1) / context.getResources().getDisplayMetrics().density);
+        } finally {
+            a.recycle();
+        }
+    }
+
+    /**
+     * With the 88dp icon rail as main fragment margin, grids keep upstream's usable width (960 - 2 x 56 = 848dp)
+     * only if their paddings shrink to 8 + 16dp: GridFragmentHelper sizes columns from the display width.
+     */
+    @Test
+    public void browsePaddingsLeaveRoomForTheRail() {
+        for (int theme : new int[]{R.style.App_Theme_Glass_Noir_Browse, R.style.App_Theme_Glass_Rose_Browse}) {
+            Context context = glassContext(theme);
+            assertEquals(8, stylePaddingDp(context, R.attr.itemsVerticalGridStyle, android.R.attr.paddingStart));
+            assertEquals(16, stylePaddingDp(context, R.attr.itemsVerticalGridStyle, android.R.attr.paddingEnd));
+            assertEquals(8, stylePaddingDp(context, R.attr.rowHorizontalGridStyle, android.R.attr.paddingStart));
+            assertEquals(16, stylePaddingDp(context, R.attr.rowHorizontalGridStyle, android.R.attr.paddingEnd));
+            assertEquals(8, stylePaddingDp(context, R.attr.rowHeaderDockStyle, android.R.attr.paddingStart));
+            // Title (search, account) starts after the rail: 88 + 8dp
+            assertEquals(96, stylePaddingDp(context, R.attr.browseTitleViewStyle, android.R.attr.paddingStart));
+        }
+    }
+
     /**
      * Upstream card presenters paint cardDefaultBackground on several nested views (the settings card on its
      * container and on its title): a translucent colour stacks into visible squares.
