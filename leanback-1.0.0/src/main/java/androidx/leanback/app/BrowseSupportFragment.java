@@ -1192,8 +1192,11 @@ public class BrowseSupportFragment extends BaseSupportFragment {
                 R.styleable.LeanbackTheme_browseRowsMarginTop, context.getResources()
                 .getDimensionPixelSize(R.dimen.lb_browse_rows_margin_top));
         ta.recycle();
-        int railResId = context.getResources().getIdentifier("lb_browse_headers_rail_width", "dimen", context.getPackageName());
-        mHeadersRailWidth = railResId != 0 ? context.getResources().getDimensionPixelSize(railResId) : 0;
+        // Theme attribute looked up by name: only the SmartTube Glass flavor declares it
+        int railAttr = context.getResources().getIdentifier("glassHeadersRailWidth", "attr", context.getPackageName());
+        android.util.TypedValue railValue = new android.util.TypedValue();
+        mHeadersRailWidth = railAttr != 0 && context.getTheme().resolveAttribute(railAttr, railValue, true)
+                ? (int) railValue.getDimension(context.getResources().getDisplayMetrics()) : 0;
 
         readArguments(getArguments());
 
@@ -1478,8 +1481,14 @@ public class BrowseSupportFragment extends BaseSupportFragment {
 
     private void expandMainFragment(boolean expand) {
         MarginLayoutParams params = (MarginLayoutParams) mScaleFrameLayout.getLayoutParams();
-        params.setMarginStart(!expand ? mContainerListMarginStart : mHeadersRailWidth);
+        params.setMarginStart(!expand ? mContainerListMarginStart : 0);
         mScaleFrameLayout.setLayoutParams(params);
+        if (mHeadersRailWidth > 0) {
+            // BrowseRowsFrameLayout measures its child ignoring margins: pad it so the rows really shrink
+            View container = (View) mScaleFrameLayout.getParent();
+            container.setPaddingRelative(expand ? mHeadersRailWidth : 0, container.getPaddingTop(),
+                    container.getPaddingEnd(), container.getPaddingBottom());
+        }
         mMainFragmentAdapter.setExpand(expand);
 
         setMainFragmentAlignment();

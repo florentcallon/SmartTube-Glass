@@ -53,6 +53,17 @@ public class GlassCardTest {
     }
 
     @Test
+    public void classicSchemeKeepsSquareThumbnails() {
+        Context context = new ContextThemeWrapper(RuntimeEnvironment.getApplication(), R.style.App_Theme_DarkGrey_Browse);
+        GlassTheme.applyDefaults(context.getTheme());
+        RelativeLayout parent = new RelativeLayout(context);
+        LayoutInflater.from(context).inflate(R.layout.text_badge_image_view, parent, true);
+
+        assertEquals(0f, roundedParentOf(parent, R.id.main_image).getCornerRadius(), 0f);
+        assertTrue(roundedParentOf(parent, R.id.main_image).getForeground() == null);
+    }
+
+    @Test
     public void badgeIsRounded() {
         GlassRoundedFrameLayout frame = roundedParentOf(inflateCardImage(), R.id.extra_text_badge);
 

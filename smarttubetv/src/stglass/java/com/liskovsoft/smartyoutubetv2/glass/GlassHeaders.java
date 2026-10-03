@@ -56,7 +56,7 @@ public final class GlassHeaders {
     }
 
     public void attach() {
-        if (mAttached) {
+        if (mAttached || !isGlassScheme()) {
             return;
         }
         // Headers are inflated by a fragment after the activity resumes and items are recycled while
@@ -98,6 +98,11 @@ public final class GlassHeaders {
             View child = grid.getChildAt(i);
             tintIcon(child, child.isActivated(), accent);
         }
+    }
+
+    private boolean isGlassScheme() {
+        TypedValue value = new TypedValue();
+        return mActivity.getTheme().resolveAttribute(R.attr.glassAmbient, value, true) && value.data != 0;
     }
 
     private int accentColor() {

@@ -5,16 +5,18 @@
          windowBackground stays opaque: BackgroundManager does not work with a translucent window. -->
 
     <!-- Paddings used with the icon rail (see App.Theme.Glass.*.Browse) -->
+    <!-- Grids: 16 + 8dp keeps upstream's usable width next to the rail (960 - 88 - 24 = 848dp) -->
     <style name="Glass.GridView" parent="GridViewStyle">
-        <item name="android:paddingStart">8dp</item>
-        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">8dp</item>
     </style>
+    <!-- Rows scroll horizontally: upstream end padding, so the last card is never cut -->
     <style name="Glass.RowView" parent="RowViewStyle">
-        <item name="android:paddingStart">8dp</item>
-        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">56dp</item>
     </style>
     <style name="Glass.RowHeaderDock" parent="Widget.Leanback.Row.HeaderDock">
-        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingStart">16dp</item>
     </style>
     <style name="Glass.TitleView" parent="Widget.Leanback.TitleView">
         <item name="android:paddingStart">24dp</item>
@@ -54,6 +56,14 @@
         <item name="imageCardViewContentStyle">@style/Glass.CardContent</item>
         <item name="rowHeaderStyle">@style/Glass.RowHeader</item>
         <item name="cardProgressStyle">@style/Glass.CardProgress</item>
+        <item name="glassHeadersRailWidth">88dp</item>
+        <item name="glassHeadersPaddingTop">88dp</item>
+        <item name="glassHeadersPanel">@drawable/glass_headers_panel</item>
+        <item name="glassHeaderPill">@drawable/glass_header_pill</item>
+        <item name="glassCardRadius">16dp</item>
+        <item name="glassBadgeRadius">6dp</item>
+        <item name="glassCardFocus">@drawable/glass_card_focus</item>
+        <item name="glassFocusOutline">@drawable/glass_focus_outline</item>
         <item name="glassAmbient">true</item>
         <item name="brandAccentColor">@color/glass_noir_accent</item>
         <!-- Free-text cards: no box behind the title, even when focused -->
@@ -104,6 +114,14 @@
         <item name="imageCardViewContentStyle">@style/Glass.CardContent</item>
         <item name="rowHeaderStyle">@style/Glass.RowHeader</item>
         <item name="cardProgressStyle">@style/Glass.CardProgress</item>
+        <item name="glassHeadersRailWidth">88dp</item>
+        <item name="glassHeadersPaddingTop">88dp</item>
+        <item name="glassHeadersPanel">@drawable/glass_headers_panel</item>
+        <item name="glassHeaderPill">@drawable/glass_header_pill</item>
+        <item name="glassCardRadius">16dp</item>
+        <item name="glassBadgeRadius">6dp</item>
+        <item name="glassCardFocus">@drawable/glass_card_focus</item>
+        <item name="glassFocusOutline">@drawable/glass_focus_outline</item>
         <item name="glassAmbient">true</item>
         <item name="brandAccentColor">@color/glass_rose_accent</item>
         <!-- Free-text cards: no box behind the title, even when focused -->

@@ -26,8 +26,8 @@ Fichiers de SmartTube modifiés (à garder minimes) :
   styles existent (donc jamais dans les flavors upstream).
 
 - `leanback-1.0.0/.../app/BrowseSupportFragment.java` et `HeadersSupportFragment.java` : réglage optionnel
-  « colonne d'icônes » quand le menu est replié, actif seulement si la dimension `lb_browse_headers_rail_width`
-  existe (définie dans `stglass` uniquement).
+  « colonne d'icônes » quand le menu est replié, actif seulement si l'attribut de thème `glassHeadersRailWidth`
+  existe et vaut plus de 0 (thèmes Glass de `stglass` uniquement ; 0 dans les thèmes classiques).
 
 Attention : une commande Gradle qui mentionne `Ststable` ou `Stbeta` active Firebase pour toutes les variantes
 de l'invocation. Compiler `stglass` dans une commande séparée.

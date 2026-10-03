@@ -95,6 +95,47 @@ public class GlassThemeTest {
         }
     }
 
+    private static float themeDimensionDp(Context context, int attr) {
+        TypedValue value = new TypedValue();
+        assertTrue("attribute missing from theme", context.getTheme().resolveAttribute(attr, value, true));
+        return value.getDimension(context.getResources().getDisplayMetrics()) / context.getResources().getDisplayMetrics().density;
+    }
+
+    private static int themeReference(Context context, int attr) {
+        TypedValue value = new TypedValue();
+        assertTrue("attribute missing from theme", context.getTheme().resolveAttribute(attr, value, false));
+        return value.data; // 0 for @null
+    }
+
+    /** Classic schemes in the fork must look like upstream: no rail, panel, pills, rounded or outlined cards. */
+    @Test
+    public void classicSchemeHasNoGlassStructure() {
+        Context context = glassContext(R.style.App_Theme_DarkGrey_Browse);
+
+        assertEquals(0f, themeDimensionDp(context, R.attr.glassHeadersRailWidth), 0f);
+        assertEquals(0f, themeDimensionDp(context, R.attr.glassHeadersPaddingTop), 0f);
+        assertEquals(0f, themeDimensionDp(context, R.attr.glassCardRadius), 0f);
+        assertEquals(0f, themeDimensionDp(context, R.attr.glassBadgeRadius), 0f);
+        for (int attr : new int[]{R.attr.glassHeadersPanel, R.attr.glassHeaderPill, R.attr.glassCardFocus, R.attr.glassFocusOutline}) {
+            assertEquals("reference attr " + attr, 0, themeReference(context, attr));
+        }
+    }
+
+    @Test
+    public void glassSchemesHaveTheGlassStructure() {
+        for (int theme : new int[]{R.style.App_Theme_Glass_Noir_Browse, R.style.App_Theme_Glass_Rose_Browse}) {
+            Context context = glassContext(theme);
+            assertEquals(88f, themeDimensionDp(context, R.attr.glassHeadersRailWidth), 0f);
+            assertEquals(88f, themeDimensionDp(context, R.attr.glassHeadersPaddingTop), 0f);
+            assertEquals(16f, themeDimensionDp(context, R.attr.glassCardRadius), 0f);
+            assertEquals(6f, themeDimensionDp(context, R.attr.glassBadgeRadius), 0f);
+            assertEquals(R.drawable.glass_headers_panel, themeReference(context, R.attr.glassHeadersPanel));
+            assertEquals(R.drawable.glass_header_pill, themeReference(context, R.attr.glassHeaderPill));
+            assertEquals(R.drawable.glass_card_focus, themeReference(context, R.attr.glassCardFocus));
+            assertEquals(R.drawable.glass_focus_outline, themeReference(context, R.attr.glassFocusOutline));
+        }
+    }
+
     @Test
     public void cardAndRowTextsUseFigtree() {
         for (int theme : new int[]{R.style.App_Theme_Glass_Noir_Browse, R.style.App_Theme_Glass_Rose_Browse}) {
@@ -113,11 +154,13 @@ public class GlassThemeTest {
     public void browsePaddingsLeaveRoomForTheRail() {
         for (int theme : new int[]{R.style.App_Theme_Glass_Noir_Browse, R.style.App_Theme_Glass_Rose_Browse}) {
             Context context = glassContext(theme);
-            assertEquals(8, stylePaddingDp(context, R.attr.itemsVerticalGridStyle, android.R.attr.paddingStart));
-            assertEquals(16, stylePaddingDp(context, R.attr.itemsVerticalGridStyle, android.R.attr.paddingEnd));
-            assertEquals(8, stylePaddingDp(context, R.attr.rowHorizontalGridStyle, android.R.attr.paddingStart));
-            assertEquals(16, stylePaddingDp(context, R.attr.rowHorizontalGridStyle, android.R.attr.paddingEnd));
-            assertEquals(8, stylePaddingDp(context, R.attr.rowHeaderDockStyle, android.R.attr.paddingStart));
+            // grids: 16 + 8 keeps upstream's usable width (960 - 88 - 24 = 848dp)
+            assertEquals(16, stylePaddingDp(context, R.attr.itemsVerticalGridStyle, android.R.attr.paddingStart));
+            assertEquals(8, stylePaddingDp(context, R.attr.itemsVerticalGridStyle, android.R.attr.paddingEnd));
+            // rows scroll horizontally: upstream end padding (56dp) so the last card is never cut
+            assertEquals(16, stylePaddingDp(context, R.attr.rowHorizontalGridStyle, android.R.attr.paddingStart));
+            assertEquals(56, stylePaddingDp(context, R.attr.rowHorizontalGridStyle, android.R.attr.paddingEnd));
+            assertEquals(16, stylePaddingDp(context, R.attr.rowHeaderDockStyle, android.R.attr.paddingStart));
             // Title (search, account) left-aligned above the panel, which starts below it
             assertEquals(24, stylePaddingDp(context, R.attr.browseTitleViewStyle, android.R.attr.paddingStart));
         }

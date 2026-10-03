@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Width of the collapsed side menu (icon rail), read by name by BrowseSupportFragment.
-         Panel 16-80dp, grid content up to 72dp (root paddingEnd 16dp): labels (from 80dp) get no room. -->
-    <dimen name="lb_browse_headers_rail_width">88dp</dimen>
     <!-- 8dp between the 44dp pill entries (upstream: 10dp between bare rows) -->
     <dimen name="browse_headers_vertical_spacing">8dp</dimen>
     <!-- No zoom on the focused side menu entry: the pill already marks focus and must stay inside the panel -->
     <item format="float" name="lb_browse_header_select_scale" type="dimen">1.0</item>
+    <!-- No elevation on focused cards: Glass cards are transparent, a shadow shows through as a dark box.
+         The side menu elevation pointed at this value: keep it explicit. -->
+    <dimen name="lb_material_shadow_focused_z">0dp</dimen>
+    <dimen name="lb_browse_headers_z">10dp</dimen>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- SmartTube Glass override of smarttubetv/src/main/res/layout/text_badge_image_view.xml (inflated by
-     ComplexImageView into itself): thumbnail clipped to 16dp corners with an accent outline when the card
+     ComplexImageView into itself), Glass schemes (theme attributes, square in classic ones): thumbnail clipped to 16dp corners with an accent outline when the card
      is selected, badge clipped to 6dp corners, rounded progress inset from the thumbnail edges.
      All ids and view classes of the upstream layout are kept. -->
 <merge xmlns:tools="http://schemas.android.com/tools"
@@ -10,8 +10,8 @@
     <com.liskovsoft.smartyoutubetv2.glass.GlassRoundedFrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:foreground="@drawable/glass_card_focus"
-        app:glassCornerRadius="16dp">
+        android:foreground="?attr/glassCardFocus"
+        app:glassCornerRadius="?attr/glassCardRadius">
         <ImageView
             android:id="@+id/main_image"
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
             android:layout_gravity="end"
             android:layout_marginEnd="6dp"
             android:layout_marginBottom="6dp"
-            app:glassCornerRadius="6dp">
+            app:glassCornerRadius="?attr/glassBadgeRadius">
             <TextView android:visibility="invisible"
                       android:id="@+id/extra_text_badge"
                       android:background="@color/black"

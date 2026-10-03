@@ -15,6 +15,16 @@
     <attr name="glassCardSelectedText" format="color" />
     <attr name="glassCardSelectedBackground" format="color" />
 
+    <!-- Glass structure, read by the overridden layouts: classic schemes get upstream values from GlassDefaults -->
+    <attr name="glassHeadersRailWidth" format="dimension" /> <!-- read by name by BrowseSupportFragment -->
+    <attr name="glassHeadersPaddingTop" format="dimension" />
+    <attr name="glassHeadersPanel" format="reference" />
+    <attr name="glassHeaderPill" format="reference" />
+    <attr name="glassCardRadius" format="dimension" />
+    <attr name="glassBadgeRadius" format="dimension" />
+    <attr name="glassCardFocus" format="reference" />
+    <attr name="glassFocusOutline" format="reference" />
+
     <declare-styleable name="GlassRoundedFrameLayout">
         <attr name="glassCornerRadius" format="dimension" />
     </declare-styleable>

@@ -15,5 +15,14 @@
         <item name="glassCardText">#FFFFFF</item>
         <item name="glassCardSelectedText">#343434</item>
         <item name="glassCardSelectedBackground">#FFFFFF</item>
+        <!-- no glass structure: upstream side menu (hidden when collapsed) and square, unoutlined cards -->
+        <item name="glassHeadersRailWidth">0dp</item>
+        <item name="glassHeadersPaddingTop">0dp</item>
+        <item name="glassHeadersPanel">@null</item>
+        <item name="glassHeaderPill">@null</item>
+        <item name="glassCardRadius">0dp</item>
+        <item name="glassBadgeRadius">0dp</item>
+        <item name="glassCardFocus">@null</item>
+        <item name="glassFocusOutline">@null</item>
     </style>
 </resources>

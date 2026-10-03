@@ -9,7 +9,7 @@
               android:orientation="vertical"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:foreground="@drawable/glass_focus_outline">
+              android:foreground="?attr/glassFocusOutline">
     <ImageView
         android:id="@+id/settings_image"
         android:layout_width="@dimen/settings_image_size"
