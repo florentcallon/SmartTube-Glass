@@ -2,6 +2,13 @@
 <!-- Floating glass side panel (spec §6.1): starts at 88dp, below the title row (27 + 50dp), 16dp from the
      left and bottom edges; ends 8dp after the headers content (root paddingEnd 16dp), so pills keep 8dp inside. -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Slight shade under the glass tint: more contrast for the labels -->
+    <item android:left="16dp" android:top="88dp" android:bottom="16dp" android:right="8dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="24dp" />
+            <solid android:color="@color/glass_panel_shade" />
+        </shape>
+    </item>
     <item android:left="16dp" android:top="88dp" android:bottom="16dp" android:right="8dp">
         <shape android:shape="rectangle">
             <corners android:radius="24dp" />

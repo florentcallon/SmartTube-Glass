@@ -22,6 +22,9 @@
     <color name="glass_rose_player_tint">#8C1A0710</color>
     <color name="glass_rose_shelf">#14060B</color>
 
+    <!-- Under the side panel tint, both schemes -->
+    <color name="glass_panel_shade">#2E000000</color>
+
     <!-- Card backgrounds must be opaque: upstream presenters paint cardDefaultBackground on nested views,
          so a translucent value stacks into visible squares. Tint pre-blended over the shelf colour. -->
     <color name="glass_noir_card">#1E1E21</color>

@@ -29,7 +29,7 @@
     android:elevation="@dimen/lb_browse_headers_z"
     android:background="@drawable/glass_headers_panel"
     >
-    <androidx.leanback.widget.VerticalGridView
+    <com.liskovsoft.smartyoutubetv2.glass.GlassFadingGridView
         android:id="@+id/browse_headers"
         android:layout_width="@dimen/lb_browse_headers_width"
         android:layout_height="match_parent"
@@ -37,6 +37,8 @@
         android:paddingTop="88dp"
         android:paddingBottom="24dp"
         android:clipToPadding="true"
+        android:requiresFadingEdge="vertical"
+        android:fadingEdgeLength="40dp"
         style="?attr/headersVerticalGridStyle"/>
     <!-- Kept for HeadersSupportFragment (it paints the brand colour fade on it); unused by the panel -->
     <View
