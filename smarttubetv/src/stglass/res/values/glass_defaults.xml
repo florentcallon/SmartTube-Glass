@@ -11,5 +11,9 @@
         <item name="glassAccent">#FF0033</item>
         <item name="glassTextSecondary">#99FFFFFF</item>
         <item name="glassPlayerTint">#8C0A0A0C</item>
+        <!-- upstream card colours: card_default_text, card_selected_text_grey, card_selected_background_white -->
+        <item name="glassCardText">#FFFFFF</item>
+        <item name="glassCardSelectedText">#343434</item>
+        <item name="glassCardSelectedBackground">#FFFFFF</item>
     </style>
 </resources>

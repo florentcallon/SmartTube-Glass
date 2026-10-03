@@ -10,4 +10,8 @@
     <attr name="glassAccent" format="color" />
     <attr name="glassTextSecondary" format="color" />
     <attr name="glassPlayerTint" format="color" />
+    <!-- Card text and selected background, read through res/color overrides of upstream colours -->
+    <attr name="glassCardText" format="color" />
+    <attr name="glassCardSelectedText" format="color" />
+    <attr name="glassCardSelectedBackground" format="color" />
 </resources>

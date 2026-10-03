@@ -25,11 +25,5 @@
     <!-- Under the side panel tint, both schemes -->
     <color name="glass_panel_shade">#2E000000</color>
 
-    <!-- Card backgrounds must be opaque: upstream presenters paint cardDefaultBackground on nested views,
-         so a translucent value stacks into visible squares. Tint pre-blended over the shelf colour. -->
-    <color name="glass_noir_card">#1E1E21</color>
-    <color name="glass_rose_card">#2C0F16</color>
 
-    <!-- Upstream fixes the selected card text to dark grey: keep a light opaque background until lot 4. -->
-    <color name="glass_card_selected">#EEEEF0</color>
 </resources>

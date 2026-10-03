@@ -124,16 +124,34 @@ public class GlassThemeTest {
     }
 
     /**
-     * Upstream card presenters paint cardDefaultBackground on several nested views (the settings card on its
-     * container and on its title): a translucent colour stacks into visible squares.
+     * Upstream card presenters paint the card background colours on nested views (card and info area,
+     * settings container and title): a partly translucent colour stacks into visible squares.
      */
     @Test
-    public void cardBackgroundsAreOpaque() {
+    public void cardBackgroundsAreOpaqueOrTransparent() {
         for (int theme : new int[]{R.style.App_Theme_Glass_Noir_Browse, R.style.App_Theme_Glass_Rose_Browse}) {
             for (int attr : new int[]{R.attr.cardDefaultBackground, R.attr.cardSelectedBackground}) {
-                int color = themeColor(theme, attr);
-                assertEquals("alpha of card background attr " + attr + " in theme " + theme, 0xFF, color >>> 24);
+                int alpha = themeColor(theme, attr) >>> 24;
+                assertTrue("card background attr " + attr + " in theme " + theme + " has alpha " + alpha, alpha == 0 || alpha == 0xFF);
             }
         }
+    }
+
+    @Test
+    public void glassSchemesUseFreeTextCardColours() {
+        Context context = glassContext(R.style.App_Theme_Glass_Rose_Browse);
+
+        assertEquals(0xC7FFFFFF, ContextCompat.getColor(context, R.color.card_default_text));
+        assertEquals(0xFFFFFFFF, ContextCompat.getColor(context, R.color.card_selected_text_grey));
+        assertEquals(0x00000000, ContextCompat.getColor(context, R.color.card_selected_background_white));
+    }
+
+    @Test
+    public void classicSchemeKeepsUpstreamCardColours() {
+        Context context = glassContext(R.style.App_Theme_DarkGrey_Browse);
+
+        assertEquals(0xFFFFFFFF, ContextCompat.getColor(context, R.color.card_default_text));
+        assertEquals(0xFF343434, ContextCompat.getColor(context, R.color.card_selected_text_grey));
+        assertEquals(0xFFFFFFFF, ContextCompat.getColor(context, R.color.card_selected_background_white));
     }
 }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SmartTube Glass: replaces the upstream colour card_selected_text_grey (values/colors.xml), read by the card
+     presenters, with the theme value ?attr/glassCardSelectedText (GlassDefaults keeps the upstream colour). -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="?attr/glassCardSelectedText" />
+</selector>

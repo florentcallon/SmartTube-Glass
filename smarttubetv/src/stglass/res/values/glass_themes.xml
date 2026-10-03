@@ -48,8 +48,12 @@
         <item name="rowHeaderStyle">@style/Glass.RowHeader</item>
         <item name="glassAmbient">true</item>
         <item name="brandAccentColor">@color/glass_noir_accent</item>
-        <item name="cardDefaultBackground">@color/glass_noir_card</item>
-        <item name="cardSelectedBackground">@color/glass_card_selected</item>
+        <!-- Free-text cards: no box behind the title, even when focused -->
+        <item name="cardDefaultBackground">@android:color/transparent</item>
+        <item name="cardSelectedBackground">@android:color/transparent</item>
+        <item name="glassCardText">#C7FFFFFF</item>
+        <item name="glassCardSelectedText">#FFFFFF</item>
+        <item name="glassCardSelectedBackground">@android:color/transparent</item>
         <item name="android:colorAccent" tools:targetApi="21">@color/glass_noir_accent</item>
         <item name="glassScrim">@color/glass_noir_scrim</item>
         <item name="glassTint">@color/glass_noir_tint</item>
@@ -92,8 +96,12 @@
         <item name="rowHeaderStyle">@style/Glass.RowHeader</item>
         <item name="glassAmbient">true</item>
         <item name="brandAccentColor">@color/glass_rose_accent</item>
-        <item name="cardDefaultBackground">@color/glass_rose_card</item>
-        <item name="cardSelectedBackground">@color/glass_card_selected</item>
+        <!-- Free-text cards: no box behind the title, even when focused -->
+        <item name="cardDefaultBackground">@android:color/transparent</item>
+        <item name="cardSelectedBackground">@android:color/transparent</item>
+        <item name="glassCardText">#C7FFFFFF</item>
+        <item name="glassCardSelectedText">#FFFFFF</item>
+        <item name="glassCardSelectedBackground">@android:color/transparent</item>
         <item name="android:colorAccent" tools:targetApi="21">@color/glass_rose_accent</item>
         <item name="glassScrim">@color/glass_rose_scrim</item>
         <item name="glassTint">@color/glass_rose_tint</item>

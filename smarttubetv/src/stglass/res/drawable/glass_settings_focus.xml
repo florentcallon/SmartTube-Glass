@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings card focus (free-text style): accent outline instead of a filled title strip -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="12dp" />
+            <stroke android:width="2dp" android:color="?attr/glassAccent" />
+        </shape>
+    </item>
+    <item android:drawable="@android:color/transparent" />
+</selector>
